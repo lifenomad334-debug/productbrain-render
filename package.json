@@ -1,0 +1,16 @@
+{
+  "name": "productbrain-render",
+  "version": "1.0.0",
+  "description": "ProductBrain rendering server - JSON to PNG slides",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "puppeteer": "^21.6.1",
+    "archiver": "^6.0.1",
+    "cors": "^2.8.5"
+  }
+}
