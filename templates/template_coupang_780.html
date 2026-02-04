@@ -3,17 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=780">
-<title>ProductBrain — Coupang 780px</title>
+<title>ProductBrain Coupang 780px</title>
 <style>
-/* ══════════════════════════════════════════════════════════
-   COUPANG 780px 통이미지 템플릿 v2
-   "웹페이지가 아니라 이미지 설계도"
-   ══════════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --w: 780px;
-  --px: 48px;              /* 좌우 패딩 */
+  --px: 48px;
   --black: #0F0F0F;
   --dark: #222222;
   --body: #3D3D3D;
@@ -50,24 +46,15 @@ body {
 
 .slide { width: var(--w); position: relative; overflow: hidden; }
 
-
-/* ══════════════════════════════════════════════════════════
-   HERO
-   — 첫인상. 제품명 + USP가 3초 안에 전달돼야 한다.
-   — 쿠팡 모바일: 큰 글씨, 강한 대비
-   ══════════════════════════════════════════════════════════ */
+/* ===== HERO ===== */
 .hero { background: var(--bg-white); }
-
 .hero__visual {
   width: 100%; height: 780px;
   background: linear-gradient(165deg, #F2F4F7 0%, #E8ECEF 100%);
   display: flex; align-items: center; justify-content: center;
   position: relative;
 }
-.hero__visual-ph {
-  font-size: 13px; color: #bbb; text-align: center; line-height: 1.6;
-}
-
+.hero__visual-ph { font-size: 13px; color: #bbb; text-align: center; line-height: 1.6; }
 .hero__badge {
   position: absolute; top: 28px; left: 28px;
   background: var(--red); color: #fff;
@@ -75,30 +62,19 @@ body {
   padding: 9px 18px; border-radius: 6px;
   letter-spacing: 0.04em;
 }
-
-.hero__text {
-  padding: 36px var(--px) 44px;
-}
+.hero__text { padding: 36px var(--px) 44px; }
 .hero__title {
   font-size: 30px; font-weight: 900; color: var(--black);
-  line-height: 1.3; letter-spacing: -0.04em;
-  margin-bottom: 14px;
+  line-height: 1.3; letter-spacing: -0.04em; margin-bottom: 14px;
 }
 .hero__hook {
   font-size: 22px; font-weight: 800; color: var(--red);
   line-height: 1.35; margin-bottom: 10px;
 }
-.hero__sub {
-  font-size: 15px; color: var(--sub); line-height: 1.65;
-}
+.hero__sub { font-size: 15px; color: var(--sub); line-height: 1.65; }
 
-
-/* ══════════════════════════════════════════════════════════
-   PROBLEM
-   — 공감 유도. 불편함 나열 후 해결 브릿지
-   ══════════════════════════════════════════════════════════ */
+/* ===== PROBLEM ===== */
 .problem { background: var(--bg-light); padding: 60px var(--px); }
-
 .problem__label {
   font-size: 11px; font-weight: 800; color: var(--hint);
   letter-spacing: 0.15em; text-transform: uppercase;
@@ -109,9 +85,7 @@ body {
   text-align: center; line-height: 1.35; margin-bottom: 40px;
   letter-spacing: -0.03em;
 }
-
 .problem__list { list-style: none; }
-
 .problem__item {
   display: flex; align-items: flex-start; gap: 16px;
   padding: 22px 28px;
@@ -119,31 +93,16 @@ body {
   margin-bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
-.problem__icon {
-  font-size: 26px; flex-shrink: 0; width: 40px; text-align: center;
-  padding-top: 2px;
-}
-.problem__text {
-  font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.55;
-}
-
+.problem__icon { font-size: 26px; flex-shrink: 0; width: 40px; text-align: center; padding-top: 2px; }
+.problem__text { font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.55; }
 .problem__bridge {
   margin-top: 36px; text-align: center;
-  font-size: 17px; font-weight: 700; color: var(--blue);
-  line-height: 1.5;
+  font-size: 17px; font-weight: 700; color: var(--blue); line-height: 1.5;
 }
-.problem__bridge::before {
-  content: '↓'; display: block; font-size: 20px;
-  color: var(--blue); margin-bottom: 8px; opacity: 0.5;
-}
+.problem__bridge::before { content: '\2193'; display: block; font-size: 20px; color: var(--blue); margin-bottom: 8px; opacity: 0.5; }
 
-
-/* ══════════════════════════════════════════════════════════
-   BENEFITS
-   — 핵심 장점 요약. 숫자 강조가 핵심
-   ══════════════════════════════════════════════════════════ */
+/* ===== BENEFITS ===== */
 .benefits { background: var(--bg-white); padding: 60px var(--px); }
-
 .section-label {
   font-size: 11px; font-weight: 800; color: var(--red);
   letter-spacing: 0.15em; text-transform: uppercase;
@@ -154,14 +113,11 @@ body {
   text-align: center; line-height: 1.35; margin-bottom: 44px;
   letter-spacing: -0.03em;
 }
-
 .benefit-card {
   display: flex; align-items: center; gap: 20px;
-  padding: 26px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 26px 0; border-bottom: 1px solid var(--border);
 }
 .benefit-card:last-child { border-bottom: none; }
-
 .benefit-icon {
   width: 60px; height: 60px; border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
@@ -172,35 +128,16 @@ body {
 .benefit-icon.t2 { background: #FFF3E0; }
 .benefit-icon.t3 { background: #FCE4EC; }
 .benefit-icon.t4 { background: #F3E5F5; }
-
 .benefit-info { flex: 1; }
-.benefit-title {
-  font-size: 18px; font-weight: 800; color: var(--black);
-  line-height: 1.3; margin-bottom: 4px;
-}
-.benefit-hl {
-  font-size: 22px; font-weight: 900; color: var(--red);
-  margin-left: 8px;
-}
-.benefit-desc {
-  font-size: 14px; color: var(--sub); line-height: 1.55;
-}
+.benefit-title { font-size: 18px; font-weight: 800; color: var(--black); line-height: 1.3; margin-bottom: 4px; }
+.benefit-hl { font-size: 22px; font-weight: 900; color: var(--red); margin-left: 8px; }
+.benefit-desc { font-size: 14px; color: var(--sub); line-height: 1.55; }
 
-
-/* ══════════════════════════════════════════════════════════
-   DETAILS (per block)
-   — 각 포인트를 깊이 설명. 텍스트 + 이미지 교차
-   ══════════════════════════════════════════════════════════ */
-.detail { }
-
-.detail__content {
-  padding: 52px var(--px) 44px;
-  text-align: center;
-}
+/* ===== DETAILS ===== */
+.detail__content { padding: 52px var(--px) 44px; text-align: center; }
 .detail__label {
   font-size: 12px; font-weight: 800; color: var(--red);
-  letter-spacing: 0.2em; text-transform: uppercase;
-  margin-bottom: 14px;
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px;
 }
 .detail__headline {
   font-size: 24px; font-weight: 900; color: var(--black);
@@ -208,168 +145,83 @@ body {
 }
 .detail__body {
   font-size: 15px; color: var(--body); line-height: 1.85;
-  max-width: 660px; margin: 0 auto;
-  word-break: keep-all;
+  max-width: 660px; margin: 0 auto; word-break: keep-all;
 }
-
 .detail__image {
   width: 100%; height: 500px;
   display: flex; align-items: center; justify-content: center;
   font-size: 12px; color: #bbb;
 }
-
-/* bg tones */
 .detail.bg-cool .detail__content { background: var(--bg-cool); }
 .detail.bg-warm .detail__content { background: var(--bg-warm); }
 .detail.bg-fresh .detail__content { background: var(--bg-fresh); }
 .detail.bg-neutral .detail__content { background: var(--bg-light); }
-
 .detail.bg-cool .detail__image { background: linear-gradient(180deg, #E8EEFF, #F5F7FF); }
 .detail.bg-warm .detail__image { background: linear-gradient(180deg, #FFF0E0, #FFF8F0); }
 .detail.bg-fresh .detail__image { background: linear-gradient(180deg, #E0F7EB, #F0FDF4); }
 .detail.bg-neutral .detail__image { background: linear-gradient(180deg, #EFEFEF, #F8F8FA); }
 
-
-/* ══════════════════════════════════════════════════════════
-   SOCIAL PROOF
-   — 후기형 문구 (리뷰 아님)
-   ══════════════════════════════════════════════════════════ */
-.social { background: var(--bg-light); padding: 60px var(--px); }
-
-.social__headline {
+/* ===== SELECTION REASONS (replaces social_proof) ===== */
+.reasons { background: var(--bg-light); padding: 60px var(--px); }
+.reasons__headline {
   font-size: 22px; font-weight: 900; color: var(--black);
-  text-align: center; margin-bottom: 6px;
-}
-.social__sub {
-  font-size: 13px; color: var(--hint); text-align: center;
-  margin-bottom: 32px;
-}
-
-.social__card {
-  background: var(--bg-white); border-radius: 14px;
-  padding: 24px 28px; margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-.social__card-header {
-  display: flex; justify-content: space-between;
-  align-items: center; margin-bottom: 12px;
-}
-.social__persona {
-  display: flex; align-items: center; gap: 10px;
-}
-.social__avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: var(--border); display: flex;
-  align-items: center; justify-content: center;
-  font-size: 14px; font-weight: 700; color: var(--sub);
-}
-.social__name {
-  font-size: 13px; font-weight: 700; color: var(--dark);
-}
-.social__stars {
-  font-size: 14px; color: #FFAD0A; letter-spacing: 1px;
-}
-.social__text {
-  font-size: 14px; color: var(--body); line-height: 1.7;
-}
-
-.social__certs {
-  display: flex; justify-content: center; gap: 28px;
-  margin-top: 28px; padding-top: 24px;
-  border-top: 1px solid var(--border);
-}
-.social__cert {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 13px; font-weight: 700; color: var(--dark);
-}
-
-.social__disclaimer {
-  margin-top: 18px; text-align: center;
-  font-size: 10px; color: var(--hint);
-  font-style: italic;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   SPECS
-   — 표 형태. 클레임 방지용 객관적 정보
-   ══════════════════════════════════════════════════════════ */
-.specs { background: var(--bg-white); padding: 60px var(--px); }
-
-.specs__title {
-  font-size: 20px; font-weight: 900; color: var(--black);
   text-align: center; margin-bottom: 36px;
 }
-
-.specs__table { width: 100%; border-top: 2px solid var(--black); }
-
-.specs__row {
-  display: flex; border-bottom: 1px solid #F0F0F0;
+.reasons__card {
+  display: flex; align-items: flex-start; gap: 18px;
+  background: var(--bg-white); border-radius: 14px;
+  padding: 28px 28px; margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  border-left: 4px solid var(--red);
 }
-.specs__row:nth-child(odd) .specs__label { background: #FAFAFA; }
-.specs__row:nth-child(odd) .specs__value { background: #FAFAFA; }
+.reasons__icon {
+  font-size: 28px; flex-shrink: 0; width: 44px; text-align: center; padding-top: 2px;
+}
+.reasons__content { flex: 1; }
+.reasons__title {
+  font-size: 17px; font-weight: 800; color: var(--black);
+  line-height: 1.3; margin-bottom: 8px;
+}
+.reasons__text {
+  font-size: 14px; color: var(--body); line-height: 1.7;
+}
+.reasons__number {
+  font-size: 11px; font-weight: 800; color: var(--red);
+  letter-spacing: 0.1em; margin-bottom: 4px;
+}
 
+/* ===== SPECS ===== */
+.specs { background: var(--bg-white); padding: 60px var(--px); }
+.specs__title { font-size: 20px; font-weight: 900; color: var(--black); text-align: center; margin-bottom: 36px; }
+.specs__table { width: 100%; border-top: 2px solid var(--black); }
+.specs__row { display: flex; border-bottom: 1px solid #F0F0F0; }
+.specs__row:nth-child(odd) .specs__label,
+.specs__row:nth-child(odd) .specs__value { background: #FAFAFA; }
 .specs__label {
-  width: 170px; flex-shrink: 0;
-  padding: 15px 18px;
+  width: 170px; flex-shrink: 0; padding: 15px 18px;
   font-size: 13px; font-weight: 700; color: var(--sub);
   border-right: 1px solid #F0F0F0;
 }
-.specs__value {
-  flex: 1; padding: 15px 18px;
-  font-size: 14px; color: var(--dark); line-height: 1.5;
-}
-
-/* Comparison */
+.specs__value { flex: 1; padding: 15px 18px; font-size: 14px; color: var(--dark); line-height: 1.5; }
 .specs__compare { margin-top: 44px; }
-.specs__compare-label {
-  font-size: 16px; font-weight: 800; color: var(--black);
-  text-align: center; margin-bottom: 20px;
-}
-.specs__compare-grid {
-  border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
-}
-.specs__compare-head {
-  display: grid; grid-template-columns: 2fr 3fr 3fr;
-  background: var(--bg-light);
-}
+.specs__compare-label { font-size: 16px; font-weight: 800; color: var(--black); text-align: center; margin-bottom: 20px; }
+.specs__compare-grid { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.specs__compare-head { display: grid; grid-template-columns: 2fr 3fr 3fr; background: var(--bg-light); }
 .specs__compare-head > div {
   padding: 14px 16px; font-size: 12px; font-weight: 700;
-  color: var(--hint); text-align: center;
-  border-right: 1px solid var(--border);
+  color: var(--hint); text-align: center; border-right: 1px solid var(--border);
 }
 .specs__compare-head > div:last-child { border-right: none; }
-
-.specs__compare-row {
-  display: grid; grid-template-columns: 2fr 3fr 3fr;
-  border-top: 1px solid #F0F0F0;
-}
-.specs__compare-row > div {
-  padding: 16px 16px; font-size: 14px; text-align: center;
-  border-right: 1px solid #F5F5F5;
-}
+.specs__compare-row { display: grid; grid-template-columns: 2fr 3fr 3fr; border-top: 1px solid #F0F0F0; }
+.specs__compare-row > div { padding: 16px 16px; font-size: 14px; text-align: center; border-right: 1px solid #F5F5F5; }
 .specs__compare-row > div:last-child { border-right: none; }
-.specs__compare-row > div:first-child {
-  font-weight: 700; color: var(--body); background: #FCFCFC;
-}
-.specs__compare-row > div:nth-child(2) {
-  font-weight: 800; color: var(--red); background: var(--red-soft);
-}
-.specs__compare-row > div:nth-child(3) {
-  color: var(--hint); background: var(--bg-white);
-}
+.specs__compare-row > div:first-child { font-weight: 700; color: var(--body); background: #FCFCFC; }
+.specs__compare-row > div:nth-child(2) { font-weight: 800; color: var(--red); background: var(--red-soft); }
+.specs__compare-row > div:nth-child(3) { color: var(--hint); background: var(--bg-white); }
 
-
-/* ══════════════════════════════════════════════════════════
-   HOW TO
-   ══════════════════════════════════════════════════════════ */
+/* ===== HOW TO ===== */
 .howto { background: var(--bg-light); padding: 60px var(--px); }
-
-.howto__title {
-  font-size: 20px; font-weight: 900; color: var(--black);
-  text-align: center; margin-bottom: 40px;
-}
-
+.howto__title { font-size: 20px; font-weight: 900; color: var(--black); text-align: center; margin-bottom: 40px; }
 .howto__step {
   display: flex; align-items: center; gap: 20px;
   background: var(--bg-white); border-radius: 14px;
@@ -380,108 +232,48 @@ body {
   width: 48px; height: 48px; border-radius: 50%;
   background: var(--red); color: #fff;
   font-size: 20px; font-weight: 900;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.howto__step-title {
-  font-size: 16px; font-weight: 800; color: var(--black);
-  margin-bottom: 3px;
-}
-.howto__step-desc {
-  font-size: 13px; color: var(--sub); line-height: 1.5;
-}
+.howto__step-title { font-size: 16px; font-weight: 800; color: var(--black); margin-bottom: 3px; }
+.howto__step-desc { font-size: 13px; color: var(--sub); line-height: 1.5; }
 
-
-/* ══════════════════════════════════════════════════════════
-   FAQ
-   ══════════════════════════════════════════════════════════ */
+/* ===== FAQ ===== */
 .faq { background: var(--bg-white); padding: 60px var(--px); }
-
-.faq__title {
-  font-size: 20px; font-weight: 900; color: var(--black);
-  text-align: center; margin-bottom: 36px;
-}
-.faq__item {
-  padding: 24px 0; border-bottom: 1px solid #F0F0F0;
-}
+.faq__title { font-size: 20px; font-weight: 900; color: var(--black); text-align: center; margin-bottom: 36px; }
+.faq__item { padding: 24px 0; border-bottom: 1px solid #F0F0F0; }
 .faq__item:last-child { border-bottom: none; }
+.faq__q { font-size: 16px; font-weight: 800; color: var(--black); line-height: 1.45; margin-bottom: 10px; display: flex; gap: 8px; }
+.faq__q-tag { color: var(--red); font-weight: 900; flex-shrink: 0; }
+.faq__a { font-size: 14px; color: var(--body); line-height: 1.75; padding-left: 30px; }
 
-.faq__q {
-  font-size: 16px; font-weight: 800; color: var(--black);
-  line-height: 1.45; margin-bottom: 10px;
-  display: flex; gap: 8px;
-}
-.faq__q-tag {
-  color: var(--red); font-weight: 900; flex-shrink: 0;
-}
-.faq__a {
-  font-size: 14px; color: var(--body); line-height: 1.75;
-  padding-left: 30px;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   CTA
-   — 최종 클로징. 긴급성 + 혜택 요약 + 신뢰 배지
-   ══════════════════════════════════════════════════════════ */
+/* ===== CTA ===== */
 .cta {
   background: linear-gradient(180deg, #FFFFFF 0%, #FFF3F3 60%, #FFE8E8 100%);
-  padding: 64px var(--px) 52px;
-  text-align: center;
+  padding: 64px var(--px) 52px; text-align: center;
 }
-
-.cta__headline {
-  font-size: 26px; font-weight: 900; color: var(--black);
-  line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.03em;
-}
-.cta__sub {
-  font-size: 15px; color: var(--body); margin-bottom: 28px;
-  line-height: 1.55;
-}
+.cta__headline { font-size: 26px; font-weight: 900; color: var(--black); line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.03em; }
+.cta__sub { font-size: 15px; color: var(--body); margin-bottom: 28px; line-height: 1.55; }
 .cta__urgency {
-  display: inline-block;
-  background: var(--red); color: #fff;
-  font-size: 15px; font-weight: 800;
-  padding: 12px 36px; border-radius: 50px;
-  margin-bottom: 14px;
-  letter-spacing: 0.02em;
+  display: inline-block; background: var(--red); color: #fff;
+  font-size: 15px; font-weight: 800; padding: 12px 36px; border-radius: 50px;
+  margin-bottom: 14px; letter-spacing: 0.02em;
 }
-.cta__bonus {
-  font-size: 15px; color: var(--red); font-weight: 700;
-  margin-bottom: 36px;
-}
-
-.cta__badges {
-  display: flex; justify-content: center; gap: 28px;
-  margin-bottom: 40px;
-}
-.cta__badge {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
+.cta__bonus { font-size: 15px; color: var(--red); font-weight: 700; margin-bottom: 36px; }
+.cta__badges { display: flex; justify-content: center; gap: 28px; margin-bottom: 40px; }
+.cta__badge { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .cta__badge-icon {
   width: 52px; height: 52px; border-radius: 50%;
-  background: var(--bg-white);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 22px;
+  background: var(--bg-white); box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
 }
-.cta__badge-label {
-  font-size: 11px; font-weight: 700; color: var(--body);
-}
-
-.cta__compliance {
-  padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.05);
-}
-.cta__compliance p {
-  font-size: 10px; color: var(--hint); line-height: 1.65;
-  margin-bottom: 2px;
-}
-
+.cta__badge-label { font-size: 11px; font-weight: 700; color: var(--body); }
+.cta__compliance { padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.05); }
+.cta__compliance p { font-size: 10px; color: var(--hint); line-height: 1.65; margin-bottom: 2px; }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ HERO ═══════════════ -->
+<!-- HERO -->
 <div class="slide hero" data-slide-id="hero">
   <div class="hero__visual" id="heroVisual">
     <div class="hero__visual-ph" id="heroPlaceholder">제품 대표 이미지<br>780 × 780px</div>
@@ -494,7 +286,7 @@ body {
   </div>
 </div>
 
-<!-- ═══════════════ PROBLEM ═══════════════ -->
+<!-- PROBLEM -->
 <div class="slide problem" data-slide-id="problem" id="slideProblem">
   <p class="problem__label">COMMON PROBLEMS</p>
   <h2 class="problem__headline" id="problemHeadline"></h2>
@@ -502,45 +294,42 @@ body {
   <p class="problem__bridge" id="problemBridge"></p>
 </div>
 
-<!-- ═══════════════ BENEFITS ═══════════════ -->
+<!-- BENEFITS -->
 <div class="slide benefits" data-slide-id="benefits">
   <p class="section-label">KEY BENEFITS</p>
   <h2 class="section-headline" id="benefitsHeadline"></h2>
   <div id="benefitsGrid"></div>
 </div>
 
-<!-- ═══════════════ DETAILS (dynamic) ═══════════════ -->
+<!-- DETAILS (dynamic) -->
 <div id="detailsContainer"></div>
 
-<!-- ═══════════════ SOCIAL PROOF ═══════════════ -->
-<div class="slide social" data-slide-id="social-proof" id="slideSocial">
-  <h2 class="social__headline" id="socialHeadline"></h2>
-  <p class="social__sub" id="socialSub"></p>
-  <div id="socialCards"></div>
-  <div class="social__certs" id="socialCerts"></div>
-  <p class="social__disclaimer" id="socialDisclaimer"></p>
+<!-- SELECTION REASONS (replaces social_proof) -->
+<div class="slide reasons" data-slide-id="selection-reasons" id="slideReasons">
+  <h2 class="reasons__headline" id="reasonsHeadline"></h2>
+  <div id="reasonsCards"></div>
 </div>
 
-<!-- ═══════════════ SPECS ═══════════════ -->
+<!-- SPECS -->
 <div class="slide specs" data-slide-id="specs">
   <h2 class="specs__title" id="specsTitle"></h2>
   <div class="specs__table" id="specsTable"></div>
   <div class="specs__compare" id="specsCompare"></div>
 </div>
 
-<!-- ═══════════════ HOW TO ═══════════════ -->
+<!-- HOW TO -->
 <div class="slide howto" data-slide-id="howto" id="slideHowto">
   <h2 class="howto__title" id="howtoTitle"></h2>
   <div id="howtoSteps"></div>
 </div>
 
-<!-- ═══════════════ FAQ ═══════════════ -->
+<!-- FAQ -->
 <div class="slide faq" data-slide-id="faq" id="slideFaq">
   <h2 class="faq__title" id="faqTitle"></h2>
   <div id="faqItems"></div>
 </div>
 
-<!-- ═══════════════ CTA ═══════════════ -->
+<!-- CTA -->
 <div class="slide cta" data-slide-id="cta">
   <h2 class="cta__headline" id="ctaHeadline"></h2>
   <p class="cta__sub" id="ctaSub"></p>
@@ -552,9 +341,6 @@ body {
 
 
 <script>
-// ══════════════════════════════════════════════════════════
-// DATA BINDING — v5.2 JSON → HTML
-// ══════════════════════════════════════════════════════════
 const D = __PRODUCT_DATA__;
 
 function render(d) {
@@ -576,7 +362,7 @@ function render(d) {
     d.problem.pain_points.forEach(p => {
       const li = document.createElement('li');
       li.className = 'problem__item';
-      li.innerHTML = `<span class="problem__icon">${p.icon||''}</span><span class="problem__text">${p.text}</span>`;
+      li.innerHTML = '<span class="problem__icon">' + (p.icon||'') + '</span><span class="problem__text">' + p.text + '</span>';
       list.appendChild(li);
     });
     document.getElementById('problemBridge').textContent = d.problem.bridge || '';
@@ -585,91 +371,86 @@ function render(d) {
   // BENEFITS
   document.getElementById('benefitsHeadline').textContent = d.benefits.section_title || '';
   const bg = document.getElementById('benefitsGrid');
-  d.benefits.items.forEach((b, i) => {
+  d.benefits.items.forEach(function(b, i) {
     const c = document.createElement('div');
     c.className = 'benefit-card';
-    const hl = b.highlight_value ? `<span class="benefit-hl">${b.highlight_value}</span>` : '';
-    c.innerHTML = `
-      <div class="benefit-icon t${i%5}">${b.icon||''}</div>
-      <div class="benefit-info">
-        <div class="benefit-title">${b.title}${hl}</div>
-        <div class="benefit-desc">${b.description}</div>
-      </div>`;
+    const hl = b.highlight_value ? '<span class="benefit-hl">' + b.highlight_value + '</span>' : '';
+    c.innerHTML = '<div class="benefit-icon t' + (i%5) + '">' + (b.icon||'') + '</div>' +
+      '<div class="benefit-info">' +
+      '<div class="benefit-title">' + b.title + hl + '</div>' +
+      '<div class="benefit-desc">' + b.description + '</div>' +
+      '</div>';
     bg.appendChild(c);
   });
 
   // DETAILS
   const dc = document.getElementById('detailsContainer');
-  d.details.blocks.forEach((block, i) => {
+  d.details.blocks.forEach(function(block, i) {
     const el = document.createElement('div');
     const tone = block.bg_tone || 'neutral';
-    el.className = `slide detail bg-${tone}`;
-    el.setAttribute('data-slide-id', `details-${i}`);
-    el.innerHTML = `
-      <div class="detail__content">
-        <p class="detail__label">${block.slide_label}</p>
-        <h2 class="detail__headline">${block.headline}</h2>
-        <p class="detail__body">${block.body}</p>
-      </div>
-      <div class="detail__image">제품 상세 이미지 ${i+1}<br>780 × 500px</div>`;
+    el.className = 'slide detail bg-' + tone;
+    el.setAttribute('data-slide-id', 'details-' + i);
+    el.innerHTML = '<div class="detail__content">' +
+      '<p class="detail__label">' + block.slide_label + '</p>' +
+      '<h2 class="detail__headline">' + block.headline + '</h2>' +
+      '<p class="detail__body">' + block.body + '</p>' +
+      '</div>' +
+      '<div class="detail__image">제품 상세 이미지 ' + (i+1) + '<br>780 × 500px</div>';
     dc.appendChild(el);
   });
 
-  // SOCIAL PROOF
-  if (tog.social_proof === false || !d.social_proof) {
-    document.getElementById('slideSocial').style.display = 'none';
+  // SELECTION REASONS (new) — also handles legacy social_proof fallback
+  var reasonsData = d.selection_reasons || null;
+
+  // Fallback: if old social_proof exists but no selection_reasons, convert it
+  if (!reasonsData && d.social_proof) {
+    reasonsData = {
+      headline: d.social_proof.headline || '이 제품을 선택해야 하는 이유',
+      items: (d.social_proof.testimonials || []).map(function(t) {
+        return { icon: '✓', title: t.persona || '', text: t.text || '' };
+      })
+    };
+  }
+
+  if (tog.selection_reasons === false || !reasonsData) {
+    document.getElementById('slideReasons').style.display = 'none';
   } else {
-    const sp = d.social_proof;
-    document.getElementById('socialHeadline').textContent = sp.headline;
-    document.getElementById('socialSub').textContent =
-      sp.testimonials ? `${sp.testimonials.length}명의 사용 후기` : '';
-    const sc = document.getElementById('socialCards');
-    (sp.testimonials||[]).forEach(t => {
-      const card = document.createElement('div');
-      card.className = 'social__card';
-      const stars = '★'.repeat(t.rating||5) + '☆'.repeat(5-(t.rating||5));
-      card.innerHTML = `
-        <div class="social__card-header">
-          <div class="social__persona">
-            <span class="social__avatar">${(t.persona||'?')[0]}</span>
-            <span class="social__name">${t.persona||''}</span>
-          </div>
-          <span class="social__stars">${stars}</span>
-        </div>
-        <p class="social__text">"${t.text}"</p>`;
-      sc.appendChild(card);
+    document.getElementById('reasonsHeadline').textContent = reasonsData.headline || '이 제품을 선택해야 하는 이유';
+    var rc = document.getElementById('reasonsCards');
+    (reasonsData.items || []).forEach(function(item, i) {
+      var card = document.createElement('div');
+      card.className = 'reasons__card';
+      card.innerHTML = '<div class="reasons__icon">' + (item.icon || '✓') + '</div>' +
+        '<div class="reasons__content">' +
+        '<div class="reasons__number">REASON 0' + (i+1) + '</div>' +
+        '<div class="reasons__title">' + (item.title || '') + '</div>' +
+        '<div class="reasons__text">' + (item.text || '') + '</div>' +
+        '</div>';
+      rc.appendChild(card);
     });
-    const certs = document.getElementById('socialCerts');
-    (sp.certifications||[]).forEach(c => {
-      const el = document.createElement('span');
-      el.className = 'social__cert';
-      el.innerHTML = `${c.icon||''} ${c.label}`;
-      certs.appendChild(el);
-    });
-    document.getElementById('socialDisclaimer').textContent = sp.disclaimer || '';
   }
 
   // SPECS
-  document.getElementById('specsTitle').textContent = d.specs.section_title || '상품 상세 정보';
-  const st = document.getElementById('specsTable');
-  d.specs.rows.forEach(r => {
-    const row = document.createElement('div');
+  document.getElementById('specsTitle').textContent = d.specs.section_title || '상세 스펙';
+  var st = document.getElementById('specsTable');
+  d.specs.rows.forEach(function(r) {
+    var row = document.createElement('div');
     row.className = 'specs__row';
-    row.innerHTML = `<div class="specs__label">${r.label}</div><div class="specs__value">${r.value}</div>`;
+    row.innerHTML = '<div class="specs__label">' + r.label + '</div><div class="specs__value">' + r.value + '</div>';
     st.appendChild(row);
   });
-  const sc = document.getElementById('specsCompare');
+  var sc2 = document.getElementById('specsCompare');
   if (d.specs.comparison && d.specs.comparison.enabled) {
-    let html = `<h3 class="specs__compare-label">왜 이 제품인가요?</h3>
-      <div class="specs__compare-grid">
-        <div class="specs__compare-head"><div>항목</div><div>본 상품</div><div>일반 제품</div></div>`;
-    d.specs.comparison.items.forEach(item => {
-      html += `<div class="specs__compare-row">
-        <div>${item.label}</div><div>${item.ours}</div><div>${item.others||'-'}</div>
-      </div>`;
+    var html = '<h3 class="specs__compare-label">왜 이 제품인가요?</h3>' +
+      '<div class="specs__compare-grid">' +
+      '<div class="specs__compare-head"><div>항목</div><div>본 상품</div><div>일반 제품</div></div>';
+    d.specs.comparison.items.forEach(function(item) {
+      html += '<div class="specs__compare-row">' +
+        '<div>' + item.label + '</div><div>' + item.ours + '</div><div>' + (item.others||'-') + '</div>' +
+        '</div>';
     });
     html += '</div>';
-    sc.innerHTML = html;
+    sc2.innerHTML = html;
   }
 
   // HOW TO
@@ -677,16 +458,13 @@ function render(d) {
     document.getElementById('slideHowto').style.display = 'none';
   } else {
     document.getElementById('howtoTitle').textContent = d.how_to.section_title || '사용 방법';
-    const hs = document.getElementById('howtoSteps');
-    d.how_to.steps.forEach(s => {
-      const step = document.createElement('div');
+    var hs = document.getElementById('howtoSteps');
+    d.how_to.steps.forEach(function(s) {
+      var step = document.createElement('div');
       step.className = 'howto__step';
-      step.innerHTML = `
-        <div class="howto__num">${s.step_number}</div>
-        <div>
-          <div class="howto__step-title">${s.title}</div>
-          <div class="howto__step-desc">${s.description}</div>
-        </div>`;
+      step.innerHTML = '<div class="howto__num">' + s.step_number + '</div>' +
+        '<div><div class="howto__step-title">' + s.title + '</div>' +
+        '<div class="howto__step-desc">' + s.description + '</div></div>';
       hs.appendChild(step);
     });
   }
@@ -696,13 +474,12 @@ function render(d) {
     document.getElementById('slideFaq').style.display = 'none';
   } else {
     document.getElementById('faqTitle').textContent = d.faq.section_title || '자주 묻는 질문';
-    const fi = document.getElementById('faqItems');
-    d.faq.items.forEach(f => {
-      const item = document.createElement('div');
+    var fi = document.getElementById('faqItems');
+    d.faq.items.forEach(function(f) {
+      var item = document.createElement('div');
       item.className = 'faq__item';
-      item.innerHTML = `
-        <div class="faq__q"><span class="faq__q-tag">Q.</span>${f.question}</div>
-        <div class="faq__a">${f.answer}</div>`;
+      item.innerHTML = '<div class="faq__q"><span class="faq__q-tag">Q.</span>' + f.question + '</div>' +
+        '<div class="faq__a">' + f.answer + '</div>';
       fi.appendChild(item);
     });
   }
@@ -710,21 +487,21 @@ function render(d) {
   // CTA
   document.getElementById('ctaHeadline').textContent = d.cta.headline;
   document.getElementById('ctaSub').textContent = d.cta.sub_text || '';
-  const urg = document.getElementById('ctaUrgency');
+  var urg = document.getElementById('ctaUrgency');
   if (d.cta.urgency) { urg.textContent = d.cta.urgency; } else { urg.style.display='none'; }
-  const bon = document.getElementById('ctaBonus');
+  var bon = document.getElementById('ctaBonus');
   if (d.cta.bonus) { bon.textContent = d.cta.bonus; } else { bon.style.display='none'; }
-  const badges = document.getElementById('ctaBadges');
-  (d.cta.trust_badges||[]).forEach(b => {
-    const el = document.createElement('div');
+  var badges = document.getElementById('ctaBadges');
+  (d.cta.trust_badges||[]).forEach(function(b) {
+    var el = document.createElement('div');
     el.className = 'cta__badge';
-    el.innerHTML = `<div class="cta__badge-icon">${b.icon||''}</div><div class="cta__badge-label">${b.label}</div>`;
+    el.innerHTML = '<div class="cta__badge-icon">' + (b.icon||'') + '</div><div class="cta__badge-label">' + b.label + '</div>';
     badges.appendChild(el);
   });
-  const comp = document.getElementById('ctaCompliance');
+  var comp = document.getElementById('ctaCompliance');
   if (d.compliance && d.compliance.legal_notices) {
-    d.compliance.legal_notices.forEach(n => {
-      const p = document.createElement('p');
+    d.compliance.legal_notices.forEach(function(n) {
+      var p = document.createElement('p');
       p.textContent = n;
       comp.appendChild(p);
     });
@@ -733,29 +510,26 @@ function render(d) {
 
 render(D);
 
-// 이미지 바인딩
-const IMG = __IMAGE_URLS__;
+// Image binding
+var IMG = __IMAGE_URLS__;
 if (IMG.length > 0) {
-  // Hero: 첫 번째 이미지
-  const heroVisual = document.getElementById('heroVisual');
-  const heroPh = document.getElementById('heroPlaceholder');
+  var heroVisual = document.getElementById('heroVisual');
+  var heroPh = document.getElementById('heroPlaceholder');
   if (heroVisual && IMG[0]) {
     heroPh.style.display = 'none';
     heroVisual.style.background = 'none';
-    const heroImg = document.createElement('img');
+    var heroImg = document.createElement('img');
     heroImg.src = IMG[0];
     heroImg.style.cssText = 'width:100%;height:100%;object-fit:contain;';
     heroVisual.insertBefore(heroImg, heroVisual.firstChild);
   }
-
-  // Details: 나머지 이미지를 순서대로
-  const detailImages = document.querySelectorAll('.detail__image');
-  detailImages.forEach((el, i) => {
-    const imgUrl = IMG[i + 1] || IMG[0]; // 이미지 부족하면 첫 번째 재사용
+  var detailImages = document.querySelectorAll('.detail__image');
+  detailImages.forEach(function(el, i) {
+    var imgUrl = IMG[i + 1] || IMG[0];
     if (imgUrl) {
       el.innerHTML = '';
       el.style.background = 'none';
-      const img = document.createElement('img');
+      var img = document.createElement('img');
       img.src = imgUrl;
       img.style.cssText = 'width:100%;height:100%;object-fit:contain;';
       el.appendChild(img);
