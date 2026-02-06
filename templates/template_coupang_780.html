@@ -22,14 +22,77 @@
   --bg-cool: #F0F4FF;
   --bg-fresh: #EEFBF3;
   --bg-dark: #1B1B1F;
-  --red: #E6002D;
-  --red-soft: #FFEFEF;
+  --accent: #E6002D;
+  --accent-soft: #FFEFEF;
   --blue: #1E6FFF;
   --blue-soft: #EBF3FF;
   --green: #00B852;
   --green-soft: #E8FAF0;
   --gold: #FF9800;
+  --cta-bg: linear-gradient(180deg, #FFFFFF 0%, #FFF3F3 60%, #FFE8E8 100%);
+  --badge-bg: #E6002D;
+  --section-bg: #F7F7F8;
 }
+
+/* 모던 레드 (기본) */
+.theme-modern_red {
+  --accent: #E6002D;
+  --accent-soft: #FFEFEF;
+  --cta-bg: linear-gradient(180deg, #FFFFFF 0%, #FFF3F3 60%, #FFE8E8 100%);
+  --badge-bg: #E6002D;
+  --section-bg: #F7F7F8;
+}
+
+/* 프리미엄 네이비 */
+.theme-premium_navy {
+  --accent: #1B2A4A;
+  --accent-soft: #EEF1F7;
+  --blue: #1B2A4A;
+  --blue-soft: #EEF1F7;
+  --gold: #C9A962;
+  --cta-bg: linear-gradient(180deg, #FFFFFF 0%, #F0EDE6 60%, #E8E2D6 100%);
+  --badge-bg: #1B2A4A;
+  --section-bg: #F8F6F0;
+  --border: #DDD8CE;
+}
+.theme-premium_navy .hero__hook { color: var(--gold) !important; }
+.theme-premium_navy .benefit-hl { color: var(--gold) !important; }
+.theme-premium_navy .cta__bonus { color: var(--gold) !important; }
+.theme-premium_navy .cta__urgency { background: var(--gold) !important; }
+.theme-premium_navy .problem__bridge { color: var(--accent) !important; }
+.theme-premium_navy .problem__bridge::before { color: var(--accent) !important; }
+.theme-premium_navy .benefit-icon.t0 { background: #EEF1F7; }
+.theme-premium_navy .benefit-icon.t1 { background: #F5F0E3; }
+.theme-premium_navy .benefit-icon.t2 { background: #EEF1F7; }
+.theme-premium_navy .reasons__card { border-left-color: var(--gold); }
+.theme-premium_navy .reasons__number { color: var(--gold); }
+.theme-premium_navy .specs__compare-row > div:nth-child(2) { color: var(--accent); background: var(--accent-soft); }
+
+/* 내추럴 웜 */
+.theme-natural_warm {
+  --accent: #5C7A3A;
+  --accent-soft: #F0F5EA;
+  --blue: #5C7A3A;
+  --blue-soft: #F0F5EA;
+  --gold: #A67C52;
+  --cta-bg: linear-gradient(180deg, #FFFFFF 0%, #F9F5EE 60%, #F0E8DA 100%);
+  --badge-bg: #5C7A3A;
+  --section-bg: #FDF8F0;
+  --border: #E5DDD0;
+}
+.theme-natural_warm .hero__hook { color: var(--gold) !important; }
+.theme-natural_warm .benefit-hl { color: var(--accent) !important; }
+.theme-natural_warm .cta__bonus { color: var(--gold) !important; }
+.theme-natural_warm .cta__urgency { background: var(--accent) !important; }
+.theme-natural_warm .problem__bridge { color: var(--accent) !important; }
+.theme-natural_warm .problem__bridge::before { color: var(--accent) !important; }
+.theme-natural_warm .benefit-icon.t0 { background: #F0F5EA; }
+.theme-natural_warm .benefit-icon.t1 { background: #FDF3E8; }
+.theme-natural_warm .benefit-icon.t2 { background: #F0F5EA; }
+.theme-natural_warm .reasons__card { border-left-color: var(--accent); }
+.theme-natural_warm .reasons__number { color: var(--accent); }
+.theme-natural_warm .faq__q-tag { color: var(--accent) !important; }
+.theme-natural_warm .specs__compare-row > div:nth-child(2) { color: var(--accent); background: var(--accent-soft); }
 
 html { -webkit-text-size-adjust: none; }
 
@@ -62,7 +125,7 @@ body {
 .hero { background: var(--bg-white); }
 .hero__badge {
   position: absolute; top: 28px; left: 28px;
-  background: var(--red); color: #fff;
+  background: var(--accent); color: #fff;
   font-size: 13px; font-weight: 800;
   padding: 9px 18px; border-radius: 6px;
   letter-spacing: 0.04em; z-index: 2;
@@ -73,7 +136,7 @@ body {
   line-height: 1.3; letter-spacing: -0.04em; margin-bottom: 14px;
 }
 .hero__hook {
-  font-size: 22px; font-weight: 800; color: var(--red);
+  font-size: 22px; font-weight: 800; color: var(--accent);
   line-height: 1.35; margin-bottom: 10px;
 }
 .hero__sub { font-size: 15px; color: var(--sub); line-height: 1.65; }
@@ -109,7 +172,7 @@ body {
 
 .benefits-section { padding: 44px var(--px) 52px; }
 .section-label {
-  font-size: 11px; font-weight: 800; color: var(--red);
+  font-size: 11px; font-weight: 800; color: var(--accent);
   letter-spacing: 0.15em; text-transform: uppercase;
   text-align: center; margin-bottom: 8px;
 }
@@ -135,7 +198,7 @@ body {
 .benefit-icon.t4 { background: #F3E5F5; }
 .benefit-info { flex: 1; }
 .benefit-title { font-size: 17px; font-weight: 800; color: var(--black); line-height: 1.3; margin-bottom: 3px; }
-.benefit-hl { font-size: 20px; font-weight: 900; color: var(--red); margin-left: 6px; }
+.benefit-hl { font-size: 20px; font-weight: 900; color: var(--accent); margin-left: 6px; }
 .benefit-desc { font-size: 13px; color: var(--sub); line-height: 1.55; }
 
 /* ===== SLIDE 3: DETAILS (merged) ===== */
@@ -143,7 +206,7 @@ body {
 .detail-block { padding: 44px var(--px) 36px; text-align: center; }
 .detail-block + .detail-block { border-top: 1px solid var(--border); }
 .detail-block__label {
-  font-size: 12px; font-weight: 800; color: var(--red);
+  font-size: 12px; font-weight: 800; color: var(--accent);
   letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 12px;
 }
 .detail-block__headline {
@@ -167,11 +230,11 @@ body {
   background: var(--bg-white); border-radius: 12px;
   padding: 24px 24px; margin-bottom: 12px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  border-left: 4px solid var(--red);
+  border-left: 4px solid var(--accent);
 }
 .reasons__icon { font-size: 26px; flex-shrink: 0; width: 40px; text-align: center; padding-top: 2px; }
 .reasons__content { flex: 1; }
-.reasons__number { font-size: 11px; font-weight: 800; color: var(--red); letter-spacing: 0.1em; margin-bottom: 3px; }
+.reasons__number { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 3px; }
 .reasons__title { font-size: 16px; font-weight: 800; color: var(--black); line-height: 1.3; margin-bottom: 6px; }
 .reasons__text { font-size: 13px; color: var(--body); line-height: 1.65; }
 
@@ -200,7 +263,7 @@ body {
 .specs__compare-row > div { padding: 14px 14px; font-size: 13px; text-align: center; border-right: 1px solid #F5F5F5; }
 .specs__compare-row > div:last-child { border-right: none; }
 .specs__compare-row > div:first-child { font-weight: 700; color: var(--body); background: #FCFCFC; }
-.specs__compare-row > div:nth-child(2) { font-weight: 800; color: var(--red); background: var(--red-soft); }
+.specs__compare-row > div:nth-child(2) { font-weight: 800; color: var(--accent); background: var(--accent-soft); }
 .specs__compare-row > div:nth-child(3) { color: var(--hint); background: var(--bg-white); }
 
 /* ===== FAQ ===== */
@@ -209,7 +272,7 @@ body {
 .faq__item { padding: 22px 0; border-bottom: 1px solid #E8E8E8; }
 .faq__item:last-child { border-bottom: none; }
 .faq__q { font-size: 15px; font-weight: 800; color: var(--black); line-height: 1.45; margin-bottom: 8px; display: flex; gap: 8px; }
-.faq__q-tag { color: var(--red); font-weight: 900; flex-shrink: 0; }
+.faq__q-tag { color: var(--accent); font-weight: 900; flex-shrink: 0; }
 .faq__a { font-size: 13px; color: var(--body); line-height: 1.75; padding-left: 28px; }
 
 /* ===== CTA ===== */
@@ -220,11 +283,11 @@ body {
 .cta__headline { font-size: 26px; font-weight: 900; color: var(--black); line-height: 1.4; margin-bottom: 14px; letter-spacing: -0.03em; }
 .cta__sub { font-size: 15px; color: var(--body); margin-bottom: 28px; line-height: 1.55; }
 .cta__urgency {
-  display: inline-block; background: var(--red); color: #fff;
+  display: inline-block; background: var(--accent); color: #fff;
   font-size: 15px; font-weight: 800; padding: 12px 36px; border-radius: 50px;
   margin-bottom: 14px; letter-spacing: 0.02em;
 }
-.cta__bonus { font-size: 15px; color: var(--red); font-weight: 700; margin-bottom: 36px; }
+.cta__bonus { font-size: 15px; color: var(--accent); font-weight: 700; margin-bottom: 36px; }
 .cta__badges { display: flex; justify-content: center; gap: 28px; margin-bottom: 40px; }
 .cta__badge { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .cta__badge-icon {
@@ -306,6 +369,26 @@ body {
 <script>
 var D = __PRODUCT_DATA__;
 var IMG = __IMAGE_URLS__;
+var STYLE = __DESIGN_STYLE__;
+
+// 테마 적용
+document.body.classList.add('theme-' + STYLE);
+
+// CTA 배경 (CSS 변수로 제어)
+var ctaSlide = document.querySelector('.cta');
+if (ctaSlide) {
+  ctaSlide.style.background = getComputedStyle(document.body).getPropertyValue('--cta-bg');
+}
+
+// problem 섹션 배경
+var problemSec = document.querySelector('.problem-section');
+if (problemSec) {
+  problemSec.style.background = getComputedStyle(document.body).getPropertyValue('--section-bg');
+}
+var reasonsSec = document.querySelector('.reasons-section');
+if (reasonsSec) {
+  reasonsSec.style.background = getComputedStyle(document.body).getPropertyValue('--section-bg');
+}
 
 // ============================================================
 // 데이터 렌더링
