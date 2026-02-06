@@ -30,13 +30,14 @@ async function getBrowser() {
   return browser;
 }
 
-async function renderSlides(json, platform, imageUrls) {
+async function renderSlides(json, platform, imageUrls, designStyle) {
   const width = platform === 'naver' ? 860 : 780;
   const template = getTemplate(platform);
 
-  // JSON + image_urls 주입
+  // JSON + image_urls + design_style 주입
   let html = template.replace('__PRODUCT_DATA__', JSON.stringify(json));
   html = html.replace('__IMAGE_URLS__', JSON.stringify(imageUrls || []));
+  html = html.replace('__DESIGN_STYLE__', JSON.stringify(designStyle || 'modern_red'));
 
   const tmpFile = path.join('/tmp', `render_${Date.now()}.html`);
   fs.writeFileSync(tmpFile, html);
