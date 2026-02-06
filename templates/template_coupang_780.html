@@ -46,21 +46,26 @@ body {
 
 .slide { width: var(--w); position: relative; overflow: hidden; }
 
+/* ===== 공용 이미지 슬롯 ===== */
+.img-slot {
+  width: 100%; overflow: hidden;
+  background: linear-gradient(165deg, #F2F4F7 0%, #E8ECEF 100%);
+}
+.img-slot img { width: 100%; display: block; object-fit: cover; }
+.img-slot--hero { height: 780px; display: flex; align-items: center; justify-content: center; }
+.img-slot--hero img { height: 100%; object-fit: contain; }
+.img-slot--section { max-height: 520px; }
+.img-slot--detail { max-height: 440px; }
+.img-slot__ph { font-size: 13px; color: #bbb; text-align: center; line-height: 1.6; }
+
 /* ===== HERO ===== */
 .hero { background: var(--bg-white); }
-.hero__visual {
-  width: 100%; height: 780px;
-  background: linear-gradient(165deg, #F2F4F7 0%, #E8ECEF 100%);
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.hero__visual-ph { font-size: 13px; color: #bbb; text-align: center; line-height: 1.6; }
 .hero__badge {
   position: absolute; top: 28px; left: 28px;
   background: var(--red); color: #fff;
   font-size: 13px; font-weight: 800;
   padding: 9px 18px; border-radius: 6px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.04em; z-index: 2;
 }
 .hero__text { padding: 36px var(--px) 44px; }
 .hero__title {
@@ -149,11 +154,6 @@ body {
   font-size: 14px; color: var(--body); line-height: 1.8;
   max-width: 640px; margin: 0 auto; word-break: keep-all;
 }
-.detail-block__image {
-  width: 100%; height: 400px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; color: #bbb;
-}
 
 /* ===== SLIDE 4: SELECTION REASONS + SPECS ===== */
 .combo-rs { background: var(--bg-white); }
@@ -241,10 +241,10 @@ body {
 
 <!-- SLIDE 1: HERO -->
 <div class="slide hero" data-slide-id="hero">
-  <div class="hero__visual" id="heroVisual">
-    <div class="hero__visual-ph" id="heroPlaceholder">제품 대표이미지<br>780 × 780px</div>
-    <div class="hero__badge" id="heroBadge"></div>
+  <div class="img-slot img-slot--hero" id="heroVisual">
+    <div class="img-slot__ph" id="heroPlaceholder">제품 대표이미지<br>780 × 780px</div>
   </div>
+  <div class="hero__badge" id="heroBadge"></div>
   <div class="hero__text">
     <h1 class="hero__title" id="heroTitle"></h1>
     <p class="hero__hook" id="heroHook"></p>
@@ -254,12 +254,14 @@ body {
 
 <!-- SLIDE 2: PROBLEM + BENEFITS -->
 <div class="slide combo-pb" data-slide-id="problem-benefits" id="slidePB">
+  <div class="img-slot img-slot--section" id="imgProblem" style="display:none"></div>
   <div class="problem-section" id="problemSection">
     <p class="problem__label">COMMON PROBLEMS</p>
     <h2 class="problem__headline" id="problemHeadline"></h2>
     <ul class="problem__list" id="problemList"></ul>
     <p class="problem__bridge" id="problemBridge"></p>
   </div>
+  <div class="img-slot img-slot--section" id="imgBenefits" style="display:none"></div>
   <div class="benefits-section">
     <p class="section-label">KEY BENEFITS</p>
     <h2 class="section-headline" id="benefitsHeadline"></h2>
@@ -267,11 +269,12 @@ body {
   </div>
 </div>
 
-<!-- SLIDE 3: DETAILS (merged 3 blocks) -->
+<!-- SLIDE 3: DETAILS (merged 3 blocks) — JS가 동적으로 이미지+텍스트 블록을 삽입 -->
 <div class="slide details-merged" data-slide-id="details" id="slideDetails"></div>
 
 <!-- SLIDE 4: SELECTION REASONS + SPECS -->
 <div class="slide combo-rs" data-slide-id="reasons-specs" id="slideRS">
+  <div class="img-slot img-slot--section" id="imgReasons" style="display:none"></div>
   <div class="reasons-section" id="reasonsSection">
     <h2 class="reasons__headline" id="reasonsHeadline"></h2>
     <div id="reasonsCards"></div>
@@ -302,7 +305,11 @@ body {
 
 <script>
 var D = __PRODUCT_DATA__;
+var IMG = __IMAGE_URLS__;
 
+// ============================================================
+// 데이터 렌더링
+// ============================================================
 function render(d) {
   var tog = d.section_toggles || {};
 
@@ -343,9 +350,17 @@ function render(d) {
     bg.appendChild(c);
   });
 
-  // DETAILS (merged into 1 slide)
+  // DETAILS (merged into 1 slide) — 이미지 슬롯도 함께 생성
   var dc = document.getElementById('slideDetails');
   d.details.blocks.forEach(function(block, i) {
+    // 이미지 슬롯 (나중에 JS로 활성화)
+    var imgDiv = document.createElement('div');
+    imgDiv.className = 'img-slot img-slot--detail';
+    imgDiv.id = 'imgDetail' + i;
+    imgDiv.style.display = 'none';
+    dc.appendChild(imgDiv);
+
+    // 텍스트 블록
     var el = document.createElement('div');
     el.className = 'detail-block';
     el.innerHTML = '<p class="detail-block__label">' + block.slide_label + '</p>' +
@@ -447,20 +462,37 @@ function render(d) {
 
 render(D);
 
-// Image binding
-var IMG = __IMAGE_URLS__;
-if (IMG.length > 0) {
-  var heroVisual = document.getElementById('heroVisual');
-  var heroPh = document.getElementById('heroPlaceholder');
-  if (heroVisual && IMG[0]) {
-    heroPh.style.display = 'none';
-    heroVisual.style.background = 'none';
-    var heroImg = document.createElement('img');
-    heroImg.src = IMG[0];
-    heroImg.style.cssText = 'width:100%;height:100%;object-fit:contain;';
-    heroVisual.insertBefore(heroImg, heroVisual.firstChild);
-  }
+// ============================================================
+// 이미지 스마트 자동 배치
+// ============================================================
+function showImage(id, url) {
+  var el = document.getElementById(id);
+  if (!el || !url) return;
+  el.style.display = 'block';
+  el.innerHTML = '<img src="' + url + '" alt="제품 이미지">';
 }
+
+var n = IMG.length;
+console.log('[RENDER] 이미지 ' + n + '장 배치 시작');
+
+// 1장: hero
+if (n >= 1) {
+  var hv = document.getElementById('heroVisual');
+  var hp = document.getElementById('heroPlaceholder');
+  hp.style.display = 'none';
+  hv.style.background = 'none';
+  hv.innerHTML = '<img src="' + IMG[0] + '" style="width:100%;height:100%;object-fit:contain;">';
+}
+
+// 2장+: details 블록에 이미지
+if (n >= 2) showImage('imgDetail0', IMG[1]);
+if (n >= 3) showImage('imgDetail1', IMG[2]);
+if (n >= 4) showImage('imgDetail2', IMG[3]);
+
+// 5장+: problem/benefits/reasons 섹션에 이미지
+if (n >= 5) showImage('imgProblem', IMG[4]);
+if (n >= 6) showImage('imgBenefits', IMG[5]);
+if (n >= 7) showImage('imgReasons', IMG[6]);
 </script>
 </body>
 </html>
