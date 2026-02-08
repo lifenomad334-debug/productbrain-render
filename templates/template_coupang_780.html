@@ -161,6 +161,7 @@ body {
   box-shadow: 0 1px 6px rgba(0,0,0,0.05);
 }
 .problem__icon { font-size: 24px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: #FFF5F5; border-radius: 12px; }
+.problem__icon svg { width: 22px; height: 22px; stroke: #E6002D; stroke-width: 2; fill: none; }
 .problem__text { font-size: 15px; font-weight: 600; color: var(--dark); line-height: 1.55; }
 .problem__bridge {
   margin-top: 40px; text-align: center; padding: 24px;
@@ -416,27 +417,64 @@ var SVG_ICONS = {
   _default: '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
 };
 
-// 아이콘 키워드 매핑
-function pickIcon(text) {
+// 아이콘 키워드 매핑 (중복 방지 포함)
+var _usedIcons = {};
+function pickIcon(text, context) {
   var t = (text || '').toLowerCase();
-  if (t.match(/빠른|초|속도|시간|원터치|즉시/)) return SVG_ICONS.zap;
-  if (t.match(/안전|안정|하중|견고|튼튼|보호/)) return SVG_ICONS.shield;
-  if (t.match(/가벼|경량|무게|kg/)) return SVG_ICONS.feather;
-  if (t.match(/배송|무료배송|택배/)) return SVG_ICONS.truck;
-  if (t.match(/보증|품질|인증/)) return SVG_ICONS.award;
-  if (t.match(/추천|인기|1위|베스트/)) return SVG_ICONS.star;
-  if (t.match(/반품|교환|환불/)) return SVG_ICONS.refresh;
-  if (t.match(/수납|컴팩트|접이|크기|사이즈/)) return SVG_ICONS.package;
-  if (t.match(/만족|좋|편안|편리/)) return SVG_ICONS.thumbsup;
-  if (t.match(/목표|정확|맞춤/)) return SVG_ICONS.target;
-  if (t.match(/시간|기간/)) return SVG_ICONS.clock;
+  var candidates = [];
+  
+  if (t.match(/빠른|초|속도|원터치|즉시|즉석/)) candidates.push('zap');
+  if (t.match(/안전|안정|하중|견고|튼튼|보호|내구/)) candidates.push('shield');
+  if (t.match(/가벼|경량|무게|kg|초경/)) candidates.push('feather');
+  if (t.match(/배송|무료배송|택배/)) candidates.push('truck');
+  if (t.match(/보증|품질|인증|프리미엄|고급/)) candidates.push('award');
+  if (t.match(/추천|인기|1위|베스트|랭킹/)) candidates.push('star');
+  if (t.match(/반품|교환|환불/)) candidates.push('refresh');
+  if (t.match(/수납|컴팩트|접이|크기|사이즈|보관/)) candidates.push('package');
+  if (t.match(/만족|좋|편안|편리|편하/)) candidates.push('thumbsup');
+  if (t.match(/목표|정확|맞춤|핵심/)) candidates.push('target');
+  if (t.match(/시간|기간|오래|지속/)) candidates.push('clock');
+  if (t.match(/사랑|건강|케어|피부/)) candidates.push('heart');
+  
+  // 중복 방지: context별로 사용된 아이콘 추적
+  var ctx = context || 'default';
+  if (!_usedIcons[ctx]) _usedIcons[ctx] = {};
+  
+  for (var c = 0; c < candidates.length; c++) {
+    if (!_usedIcons[ctx][candidates[c]]) {
+      _usedIcons[ctx][candidates[c]] = true;
+      return SVG_ICONS[candidates[c]];
+    }
+  }
+  
+  // 모든 후보가 사용됨 → 미사용 아이콘 순회
+  var allKeys = ['zap','shield','feather','truck','award','star','package','thumbsup','target','clock','heart','check'];
+  for (var k = 0; k < allKeys.length; k++) {
+    if (!_usedIcons[ctx][allKeys[k]]) {
+      _usedIcons[ctx][allKeys[k]] = true;
+      return SVG_ICONS[allKeys[k]];
+    }
+  }
   return SVG_ICONS._default;
 }
 
-// 숫자 추출 (headline에서 "1.2kg", "3초", "150kg" 등)
-function extractNumber(text) {
-  var m = text.match(/(\d+[\.,]?\d*)\s*(kg|g|초|cm|mm|%|ml|L|개|장|만|억|원|brix|W|Mbps)/i);
-  if (m) return { num: m[1] + m[2], rest: text.replace(m[0], '').trim() };
+// Problem용 SVG 아이콘
+var PROBLEM_ICONS = [
+  '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+  '<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+  '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+  '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>'
+];
+
+// 숫자 추출 — headline + body 모두에서 시도
+function extractNumber(headline, body) {
+  var m = headline.match(/(\d+[\.,]?\d*)\s*(kg|g|초|cm|mm|%|ml|L|개|장|만|억|원|brix|W|Mbps)/i);
+  if (m) return { num: m[1] + m[2], rest: headline.replace(m[0], '').trim() };
+  // headline에 없으면 body에서 시도
+  if (body) {
+    var m2 = body.match(/(\d+[\.,]?\d*)\s*(kg|g|초|cm|mm|%|ml|L|개|장|만|억|원|brix|W|Mbps)/i);
+    if (m2) return { num: m2[1] + m2[2], rest: headline };
+  }
   return null;
 }
 
@@ -458,7 +496,7 @@ function render(d) {
   d.benefits.items.slice(0, 4).forEach(function(b) {
     var div = document.createElement('div');
     div.className = 'icon-grid__item';
-    div.innerHTML = '<div class="icon-grid__icon">' + pickIcon(b.title) + '</div>' +
+    div.innerHTML = '<div class="icon-grid__icon">' + pickIcon(b.title, 'grid') + '</div>' +
       '<div class="icon-grid__label">' + b.title + '</div>';
     ig.appendChild(div);
   });
@@ -469,10 +507,11 @@ function render(d) {
   } else {
     document.getElementById('problemHeadline').textContent = d.problem.headline;
     var list = document.getElementById('problemList');
-    d.problem.pain_points.forEach(function(p) {
+    d.problem.pain_points.forEach(function(p, pi) {
       var li = document.createElement('li');
       li.className = 'problem__item';
-      li.innerHTML = '<span class="problem__icon">' + (p.icon || '😤') + '</span>' +
+      var pIcon = PROBLEM_ICONS[pi % PROBLEM_ICONS.length];
+      li.innerHTML = '<span class="problem__icon">' + pIcon + '</span>' +
         '<span class="problem__text">' + p.text + '</span>';
       list.appendChild(li);
     });
@@ -487,7 +526,7 @@ function render(d) {
     var c = document.createElement('div');
     c.className = 'benefit-card';
     var hlHtml = b.highlight_value ? ' <span class="benefit__hl">' + b.highlight_value + '</span>' : '';
-    c.innerHTML = '<div class="benefit__icon">' + pickIcon(b.title) + '</div>' +
+    c.innerHTML = '<div class="benefit__icon">' + pickIcon(b.title, 'benefit') + '</div>' +
       '<div class="benefit__info">' +
       '<div class="benefit__title">' + b.title + hlHtml + '</div>' +
       '<div class="benefit__desc">' + b.description + '</div>' +
@@ -499,7 +538,7 @@ function render(d) {
   var dc = document.getElementById('slideDetails');
   d.details.blocks.forEach(function(block, i) {
     var hasImg = (IMG.length > i + 1); // IMG[0]은 hero, IMG[1+]은 details
-    var numData = extractNumber(block.headline);
+    var numData = extractNumber(block.headline, block.body);
     var isReverse = (i % 2 === 1);
     var bgClass = (i % 2 === 0) ? 'bg-white' : 'bg-alt';
 
@@ -559,7 +598,7 @@ function render(d) {
     (reasonsData.items || []).forEach(function(item, i) {
       var card = document.createElement('div');
       card.className = 'reasons__card';
-      card.innerHTML = '<div class="reasons__icon">' + pickIcon(item.title) + '</div>' +
+      card.innerHTML = '<div class="reasons__icon">' + pickIcon(item.title, 'reason') + '</div>' +
         '<div class="reasons__content">' +
         '<div class="reasons__num">REASON 0' + (i+1) + '</div>' +
         '<div class="reasons__title">' + (item.title || '') + '</div>' +
@@ -616,7 +655,7 @@ function render(d) {
   (d.cta.trust_badges || []).forEach(function(b) {
     var el = document.createElement('div');
     el.className = 'cta__badge';
-    el.innerHTML = '<div class="cta__badge-icon">' + pickIcon(b.label) + '</div>' +
+    el.innerHTML = '<div class="cta__badge-icon">' + pickIcon(b.label, 'cta') + '</div>' +
       '<div class="cta__badge-label">' + b.label + '</div>';
     badges.appendChild(el);
   });
