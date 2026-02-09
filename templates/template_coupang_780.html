@@ -27,13 +27,13 @@
   --green-soft: #F0FDF4;
   --gold: #D97706;
   --cta-grad: linear-gradient(135deg, #FF4757 0%, #E6002D 50%, #C70025 100%);
-  --section-alt: #F7F7FA;
+  --section-alt: #F0F0F5;
   /* 새로운 변수 */
-  --problem-bg: #FFF8F0;
+  --problem-bg: #FFF0E0;
   --problem-accent: #E85D04;
-  --benefit-bg: #F0F7FF;
+  --benefit-bg: #E8F0FF;
   --cta-bg: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
-  --section-divider: #F0F0F5;
+  --section-divider: #E8E8F0;
 }
 
 /* ===== 테마: 모던 레드 (기본) ===== */
@@ -43,9 +43,9 @@
 .theme-premium_navy {
   --accent: #1B2A4A; --accent-soft: #EEF1F8; --accent-mid: #C8D1E4;
   --gold: #D4A843; --cta-grad: linear-gradient(135deg, #D4A843 0%, #C9A030 50%, #B8922A 100%);
-  --section-alt: #F5F3EE; --border: #D5CFC3;
-  --problem-bg: #FDF8F0; --problem-accent: #C9A030;
-  --benefit-bg: #F0F2F8;
+  --section-alt: #EDE8DD; --border: #CFC8B8;
+  --problem-bg: #F5ECDB; --problem-accent: #C9A030;
+  --benefit-bg: #DDE4F0;
   --cta-bg: linear-gradient(180deg, #1B2A4A 0%, #152238 50%, #0F1A2E 100%);
 }
 .theme-premium_navy .hero__hook,
@@ -66,9 +66,9 @@
 .theme-natural_warm {
   --accent: #3D7A2A; --accent-soft: #EFF7EB; --accent-mid: #C8E0BC;
   --gold: #B87830; --cta-grad: linear-gradient(135deg, #3D7A2A 0%, #2E6B1D 50%, #245A16 100%);
-  --section-alt: #FAF7F0; --border: #DDD5C5;
-  --problem-bg: #FEF8F0; --problem-accent: #B87830;
-  --benefit-bg: #F0F6EC;
+  --section-alt: #F3EDDF; --border: #D5CCBA;
+  --problem-bg: #F9EDDB; --problem-accent: #C67A25;
+  --benefit-bg: #E4EFDC;
   --cta-bg: linear-gradient(180deg, #2C4A20 0%, #1E3516 50%, #162A10 100%);
 }
 .theme-natural_warm .hero__hook,
@@ -83,6 +83,17 @@
 /* 오버레이 위에서는 hook을 밝은색으로 */
 .theme-natural_warm .hero__overlay .hero__hook { color: #D4E8C8 !important; opacity: 1 !important; }
 .theme-natural_warm .hero__overlay .hero__sub { color: rgba(255,255,255,0.85) !important; }
+/* natural_warm 다크 섹션: 진한 녹색 */
+.theme-natural_warm #problemSection { background: linear-gradient(180deg, #1E3516 0%, #2C4A20 50%, #1E3516 100%) !important; }
+.theme-natural_warm #reasonsSection { background: linear-gradient(180deg, #2A3B22 0%, #354A2C 50%, #2A3B22 100%) !important; }
+.theme-natural_warm #problemSection .sec-title::after,
+.theme-natural_warm #reasonsSection .sec-title::after { background: var(--gold) !important; }
+
+/* premium_navy 다크 섹션: 더 깊은 네이비 */
+.theme-premium_navy #problemSection { background: linear-gradient(180deg, #0F1A2E 0%, #1B2A4A 50%, #0F1A2E 100%) !important; }
+.theme-premium_navy #reasonsSection { background: linear-gradient(180deg, #152238 0%, #1B2A4A 50%, #152238 100%) !important; }
+.theme-premium_navy #problemSection .sec-title::after,
+.theme-premium_navy #reasonsSection .sec-title::after { background: var(--gold) !important; }
 
 html { -webkit-text-size-adjust: none; }
 
@@ -163,8 +174,8 @@ body {
   -webkit-text-stroke: 0.5px rgba(0,0,0,0.1);
 }
 .sec-title::after {
-  content: ''; display: block; width: 56px; height: 4px;
-  background: var(--accent); border-radius: 2px;
+  content: ''; display: block; width: 56px; height: 5px;
+  background: var(--accent); border-radius: 3px;
   margin: 20px auto 0;
 }
 .sec-sub {
@@ -201,13 +212,13 @@ body {
 }
 .hero__sub { font-size: 15px; color: var(--sub); line-height: 1.7; }
 
-/* ===== ICON GRID ===== */
+/* ===== ICON GRID — 강한 accent 배경 ===== */
 .icon-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 2px solid var(--accent);
+  border-top: 3px solid var(--accent);
   border-bottom: 1px solid var(--border);
   position: relative; z-index: 3;
-  background: var(--accent-soft);
+  background: var(--accent-mid);
 }
 /* [S급] icon-grid padding 34px */
 .icon-grid__item {
@@ -220,46 +231,41 @@ body {
 /* [S급] icon-grid label 14px */
 .icon-grid__label { font-size: 14px; font-weight: 700; color: var(--dark); line-height: 1.4; }
 
-/* ===== PROBLEM ===== */
+/* ===== PROBLEM — 다크 배경으로 극적 대비 ===== */
 .problem__list { list-style: none; max-width: 640px; margin: 0 auto; }
-/* [S급] problem item: 따뜻한 경고색 배경, 더 강한 대비 */
 .problem__item {
   display: flex; align-items: center; gap: 18px;
-  padding: 26px 32px; background: #FFFFFF;
+  padding: 26px 32px; background: rgba(255,255,255,0.08);
   border-radius: 16px; margin-bottom: 14px;
-  box-shadow: 0 3px 16px rgba(0,0,0,0.07);
-  border-left: 5px solid var(--problem-accent, var(--accent-mid));
+  backdrop-filter: blur(4px);
+  border-left: 5px solid rgba(255,255,255,0.3);
   transition: transform 0.2s;
 }
-/* [S급] problem icon: filled 스타일 — 더 진한 배경 */
 .problem__icon {
   font-size: 24px; flex-shrink: 0; width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
-  background: #FFF0E0; border-radius: 14px;
+  background: rgba(255,255,255,0.12); border-radius: 14px;
 }
-.problem__icon svg { width: 26px; height: 26px; stroke: var(--problem-accent, #E85D04); stroke-width: 2; fill: none; }
-/* [S급] problem text 16px */
-.problem__text { font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.55; }
-/* [S급] bridge 강화 */
+.problem__icon svg { width: 26px; height: 26px; stroke: rgba(255,255,255,0.85); stroke-width: 2; fill: none; }
+.problem__text { font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.95); line-height: 1.55; }
 .problem__bridge {
   margin-top: 48px; text-align: center; padding: 28px 32px;
-  font-size: 18px; font-weight: 700; color: var(--accent); line-height: 1.55;
-  background: var(--accent-soft); border-radius: 16px;
+  font-size: 18px; font-weight: 700; color: #FFFFFF; line-height: 1.55;
+  background: rgba(255,255,255,0.1); border-radius: 16px;
   max-width: 640px; margin-left: auto; margin-right: auto;
-  border: 1px solid var(--accent-mid);
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
-/* ===== BENEFITS CARDS ===== */
+/* ===== BENEFITS CARDS — 색감 있는 카드 ===== */
 .benefit-cards { max-width: 640px; margin: 0 auto; }
-/* [S급] benefit-card: 밝은 색상 배경, 더 강한 그림자 */
 .benefit-card {
   display: flex; align-items: center; gap: 24px;
   padding: 32px 28px; margin-bottom: 16px;
-  background: #FFFFFF;
+  background: rgba(255,255,255,0.85);
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  border: 1px solid rgba(0,0,0,0.05);
-  border-left: 4px solid var(--accent);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-left: 5px solid var(--accent);
 }
 .benefit-card:last-child { margin-bottom: 0; }
 /* [S급] benefit icon 72px — 강한 배경색 */
@@ -293,27 +299,26 @@ body {
 }
 .detail-row__img img { width: 100%; height: 100%; object-fit: cover; }
 .detail-row__img-ph { font-size: 12px; color: #ccc; text-align: center; }
-/* [S급] detail text padding 확대 + 미세 그라디언트 */
+/* [S급] detail text padding 확대 */
 .detail-row__text {
   width: 50%; padding: 56px 48px;
   display: flex; flex-direction: column; justify-content: center;
-  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,250,0.5) 100%);
 }
 .detail-row__text--full {
   width: 100%; text-align: center; padding: 72px var(--px) 80px;
 }
 .detail-block__badge { margin-bottom: 18px; }
-/* [S급] detail headline 30px + 스트로크 */
+/* [S급] detail headline 34px + 스트로크 */
 .detail-block__headline {
-  font-size: 30px; font-weight: 900; color: var(--black);
-  line-height: 1.3; margin-bottom: 20px; letter-spacing: -0.03em;
+  font-size: 34px; font-weight: 900; color: var(--black);
+  line-height: 1.25; margin-bottom: 20px; letter-spacing: -0.03em;
   word-break: keep-all;
   -webkit-text-stroke: 0.4px rgba(0,0,0,0.1);
 }
-/* [S급] big-number 80px + 스트로크 — 최대 임팩트 */
+/* [S급] big-number 100px + 스트로크 — 레퍼런스급 임팩트 */
 .detail-block__num {
-  font-size: 80px; font-weight: 900; color: var(--accent);
-  line-height: 1; margin-bottom: 10px; letter-spacing: -0.05em;
+  font-size: 100px; font-weight: 900; color: var(--accent);
+  line-height: 0.9; margin-bottom: 10px; letter-spacing: -0.05em;
   -webkit-text-stroke: 1px rgba(0,0,0,0.08);
   paint-order: stroke fill;
 }
@@ -327,15 +332,15 @@ body {
 .detail-full { text-align: center; }
 .detail-full .detail-block__body { max-width: 580px; margin: 0 auto; }
 
-/* ===== REASONS ===== */
+/* ===== REASONS — 다크 배경 위 카드 ===== */
 .reasons__cards { max-width: 640px; margin: 0 auto; }
-/* [S급] reasons card: 패딩 확대, 그림자 강화, 보더 5px */
 .reasons__card {
   display: flex; align-items: flex-start; gap: 20px;
-  background: var(--bg-white); border-radius: 20px;
+  background: rgba(255,255,255,0.06); border-radius: 20px;
   padding: 36px 34px; margin-bottom: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   border-left: 5px solid var(--accent);
+  backdrop-filter: blur(4px);
 }
 /* [S급] reasons icon 48px — accent 배경 + 흰 아이콘 */
 .reasons__icon {
@@ -345,11 +350,9 @@ body {
 }
 .reasons__icon svg { width: 24px; height: 24px; stroke: #FFFFFF; stroke-width: 2; fill: none; }
 .reasons__content { flex: 1; }
-.reasons__num { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 6px; }
-/* [S급] reasons title 18px */
-.reasons__title { font-size: 18px; font-weight: 800; color: var(--black); line-height: 1.35; margin-bottom: 8px; }
-/* [S급] reasons text 14px */
-.reasons__text { font-size: 14px; color: var(--body); line-height: 1.75; }
+.reasons__num { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 6px; opacity: 0.8; }
+.reasons__title { font-size: 18px; font-weight: 800; color: #FFFFFF; line-height: 1.35; margin-bottom: 8px; }
+.reasons__text { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.75; }
 
 /* ===== SPECS ===== */
 .specs__table { width: 100%; border-top: 3px solid var(--accent); max-width: 640px; margin: 24px auto 0; border-radius: 0 0 12px 12px; overflow: hidden; }
@@ -460,25 +463,25 @@ body {
 </div>
 
 <!-- [S급] Wave Divider -->
-<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--section-alt)">
+<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="#1A1A2E">
   <path d="M0,48 C195,0 585,0 780,48 L780,48 L0,48 Z"/>
 </svg>
 
 <!-- SLIDE 2: PROBLEM + BENEFITS -->
 <div class="slide" data-slide-id="problem-benefits">
   <div class="img-slot img-slot--full" id="imgProblem" style="display:none"></div>
-  <div class="section-pad" style="background: var(--problem-bg, #FFF8F0);" id="problemSection">
-    <p class="sec-label">COMMON PROBLEMS</p>
-    <h2 class="sec-title" id="problemHeadline"></h2>
+  <div class="section-pad" style="background: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #1A1A2E 100%);" id="problemSection">
+    <p class="sec-label" style="color: rgba(255,255,255,0.5);">COMMON PROBLEMS</p>
+    <h2 class="sec-title" id="problemHeadline" style="color: #FFFFFF;"></h2>
     <ul class="problem__list" id="problemList"></ul>
     <div class="problem__bridge" id="problemBridge"></div>
   </div>
   <!-- [S급] Wave Divider between problem and benefits -->
-  <svg class="wave-divider wave-divider--flip" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--problem-bg, #FFF8F0)">
+  <svg class="wave-divider wave-divider--flip" viewBox="0 0 780 48" preserveAspectRatio="none" fill="#1A1A2E">
     <path d="M0,48 C195,0 585,0 780,48 L780,48 L0,48 Z"/>
   </svg>
   <div class="img-slot img-slot--full" id="imgBenefits" style="display:none"></div>
-  <div class="section-pad" style="background: var(--benefit-bg, #F0F7FF);">
+  <div class="section-pad" style="background: var(--benefit-bg);">
     <p class="sec-label">KEY BENEFITS</p>
     <h2 class="sec-title" id="benefitsHeadline"></h2>
     <div class="benefit-cards" id="benefitsGrid"></div>
@@ -488,33 +491,31 @@ body {
 <!-- SLIDE 3+: DETAILS — 각 포인트가 개별 슬라이드 -->
 <div class="detail-section" id="slideDetails"></div>
 
-<!-- [S급] Wave Divider -->
-<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--section-alt)">
+<!-- [S급] Wave Divider before Reasons -->
+<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="#1A2332">
   <path d="M0,48 C195,0 585,0 780,48 L780,48 L0,48 Z"/>
 </svg>
 
 <!-- SLIDE 4: REASONS + SPECS -->
 <div class="slide" data-slide-id="reasons-specs">
   <div class="img-slot img-slot--full" id="imgReasons" style="display:none"></div>
-  <div class="section-pad bg-alt" id="reasonsSection">
-    <h2 class="sec-title" id="reasonsHeadline"></h2>
+  <div class="section-pad" style="background: linear-gradient(180deg, #1A2332 0%, #1E293B 50%, #1A2332 100%);" id="reasonsSection">
+    <h2 class="sec-title" id="reasonsHeadline" style="color: #FFFFFF;"></h2>
     <div class="reasons__cards" id="reasonsCards"></div>
   </div>
-  <div class="section-pad--tight bg-white">
+  <div class="section-pad--tight" style="background: var(--problem-bg); padding-top: 60px; padding-bottom: 68px;">
     <h2 class="sec-title" id="specsTitle"></h2>
     <div class="specs__table" id="specsTable"></div>
     <div class="specs__compare" id="specsCompare"></div>
   </div>
 </div>
 
-<!-- [S급] Wave Divider -->
-<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--section-alt)">
+<!-- [S급] Wave Divider before FAQ -->
+<svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--benefit-bg)">
   <path d="M0,48 C195,0 585,0 780,48 L780,48 L0,48 Z"/>
 </svg>
-
-<!-- SLIDE 5: FAQ -->
 <div class="slide" data-slide-id="faq" id="slideFaq">
-  <div class="section-pad bg-alt">
+  <div class="section-pad" style="background: var(--benefit-bg);">
     <h2 class="sec-title" id="faqTitle"></h2>
     <div class="faq__items" id="faqItems"></div>
   </div>
@@ -686,8 +687,8 @@ function render(d) {
     var hasImg = (IMG.length > i + 1);
     var numData = extractNumber(block.headline, block.body);
     var isReverse = (i % 2 === 1);
-    // 교차 배경: 흰색 → 연한 accent-soft → 반복
-    var bgColors = ['background:#FFFFFF', 'background:var(--section-alt)', 'background:var(--benefit-bg,#F0F7FF)'];
+    // 교차 배경: accent-soft → section-alt → benefit-bg 순환
+    var bgColors = ['background:var(--accent-soft)', 'background:var(--section-alt)', 'background:var(--benefit-bg)'];
     var bgStyle = bgColors[i % bgColors.length];
 
     // 각 detail block을 개별 slide div로 감싸기
