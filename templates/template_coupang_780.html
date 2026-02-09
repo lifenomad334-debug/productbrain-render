@@ -204,10 +204,10 @@ body {
 /* ===== ICON GRID ===== */
 .icon-grid {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
   border-bottom: 1px solid var(--border);
   position: relative; z-index: 3;
-  background: var(--bg-white);
+  background: var(--accent-soft);
 }
 /* [S급] icon-grid padding 34px */
 .icon-grid__item {
@@ -293,10 +293,11 @@ body {
 }
 .detail-row__img img { width: 100%; height: 100%; object-fit: cover; }
 .detail-row__img-ph { font-size: 12px; color: #ccc; text-align: center; }
-/* [S급] detail text padding 확대 */
+/* [S급] detail text padding 확대 + 미세 그라디언트 */
 .detail-row__text {
   width: 50%; padding: 56px 48px;
   display: flex; flex-direction: column; justify-content: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(245,245,250,0.5) 100%);
 }
 .detail-row__text--full {
   width: 100%; text-align: center; padding: 72px var(--px) 80px;
@@ -336,13 +337,13 @@ body {
   box-shadow: 0 4px 20px rgba(0,0,0,0.05);
   border-left: 5px solid var(--accent);
 }
-/* [S급] reasons icon 48px */
+/* [S급] reasons icon 48px — accent 배경 + 흰 아이콘 */
 .reasons__icon {
   flex-shrink: 0; width: 48px; height: 48px;
   display: flex; align-items: center; justify-content: center;
-  background: var(--accent-soft); border-radius: 14px;
+  background: var(--accent); border-radius: 14px;
 }
-.reasons__icon svg { width: 24px; height: 24px; stroke: var(--accent); stroke-width: 2; fill: none; }
+.reasons__icon svg { width: 24px; height: 24px; stroke: #FFFFFF; stroke-width: 2; fill: none; }
 .reasons__content { flex: 1; }
 .reasons__num { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 6px; }
 /* [S급] reasons title 18px */
@@ -351,12 +352,12 @@ body {
 .reasons__text { font-size: 14px; color: var(--body); line-height: 1.75; }
 
 /* ===== SPECS ===== */
-.specs__table { width: 100%; border-top: 2px solid var(--black); max-width: 640px; margin: 24px auto 0; }
+.specs__table { width: 100%; border-top: 3px solid var(--accent); max-width: 640px; margin: 24px auto 0; border-radius: 0 0 12px 12px; overflow: hidden; }
 .specs__row { display: flex; border-bottom: 1px solid #EFEFEF; }
 .specs__label {
   width: 150px; flex-shrink: 0; padding: 16px 20px;
-  font-size: 13px; font-weight: 700; color: var(--sub);
-  border-right: 1px solid #EFEFEF; background: #FAFAFA;
+  font-size: 13px; font-weight: 700; color: var(--dark);
+  border-right: 1px solid #EFEFEF; background: var(--accent-soft);
 }
 .specs__value { flex: 1; padding: 16px 20px; font-size: 14px; color: var(--dark); line-height: 1.55; font-weight: 500; }
 
@@ -376,14 +377,14 @@ body {
 .specs__compare-row > div:nth-child(2) { font-weight: 800; color: var(--accent); background: var(--accent-soft); }
 .specs__compare-row > div:nth-child(3) { color: var(--hint); }
 
-/* ===== FAQ — 카드형 ===== */
+/* ===== FAQ — 카드형 강화 ===== */
 .faq__items { max-width: 640px; margin: 0 auto; }
-/* [S급] faq item: 패딩 확대, 그림자 강화 */
 .faq__item {
-  background: var(--bg-white); border-radius: 18px;
+  background: #FFFFFF; border-radius: 18px;
   padding: 34px 36px; margin-bottom: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.03);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  border-left: 4px solid var(--accent);
 }
 .faq__q {
   font-size: 17px; font-weight: 800; color: var(--black);
@@ -685,7 +686,9 @@ function render(d) {
     var hasImg = (IMG.length > i + 1);
     var numData = extractNumber(block.headline, block.body);
     var isReverse = (i % 2 === 1);
-    var bgClass = (i % 2 === 0) ? 'bg-white' : 'bg-alt';
+    // 교차 배경: 흰색 → 연한 accent-soft → 반복
+    var bgColors = ['background:#FFFFFF', 'background:var(--section-alt)', 'background:var(--benefit-bg,#F0F7FF)'];
+    var bgStyle = bgColors[i % bgColors.length];
 
     // 각 detail block을 개별 slide div로 감싸기
     var slideWrapper = document.createElement('div');
@@ -694,7 +697,8 @@ function render(d) {
 
     if (hasImg) {
       var row = document.createElement('div');
-      row.className = 'detail-row' + (isReverse ? ' detail-row--reverse' : '') + ' ' + bgClass;
+      row.className = 'detail-row' + (isReverse ? ' detail-row--reverse' : '');
+      row.style.cssText = bgStyle;
       row.id = 'detailRow' + i;
 
       var numHtml = numData ? '<div class="detail-block__num">' + numData.num + '</div>' : '';
@@ -713,7 +717,8 @@ function render(d) {
       slideWrapper.appendChild(row);
     } else {
       var wrapper = document.createElement('div');
-      wrapper.className = 'detail-full ' + bgClass;
+      wrapper.className = 'detail-full';
+      wrapper.style.cssText = bgStyle;
 
       var numHtml2 = numData ? '<div class="detail-block__num">' + numData.num + '</div>' : '';
       var headlineText2 = numData ? numData.rest : block.headline;
