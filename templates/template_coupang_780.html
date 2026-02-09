@@ -407,7 +407,6 @@ body {
       <p class="hero__sub" id="heroSubOverlay"></p>
     </div>
   </div>
-  <div class="hero__badge" id="heroBadge"></div>
   <div class="hero__text" id="heroTextBlock">
     <h1 class="hero__title" id="heroTitle"></h1>
     <p class="hero__hook" id="heroHook"></p>
@@ -585,8 +584,6 @@ function render(d) {
   var tog = d.section_toggles || {};
 
   // HERO
-  var hb = document.getElementById('heroBadge');
-  if (d.hero.badge) { hb.textContent = d.hero.badge; } else { hb.style.display = 'none'; }
   document.getElementById('heroTitle').textContent = d.hero.product_title;
   document.getElementById('heroHook').textContent = d.hero.hook_line;
   document.getElementById('heroSub').textContent = d.hero.sub_hook || '';
