@@ -110,6 +110,8 @@ body {
 /* [S급] 섹션 여백 확대 */
 .section-pad { padding: 80px var(--px) 88px; }
 .section-pad--tight { padding: 60px var(--px) 68px; }
+/* CTA 전용 — 하단 여백 줄임 */
+.section-pad--cta { padding: 72px var(--px) 48px; }
 .bg-white { background: var(--bg-white); }
 /* [S급] bg-alt: 미세 그라데이션 */
 .bg-alt { background: linear-gradient(180deg, var(--section-alt) 0%, #FFFFFF 100%); }
@@ -246,10 +248,13 @@ body {
 
 /* ===== DETAILS — 좌우 교차 레이아웃 ===== */
 .detail-section { }
-/* [S급] detail-row min-height 460px */
+/* [S급] detail-row min-height 440px, 섹션 사이 미세 구분 */
 .detail-row {
-  display: flex; align-items: stretch; min-height: 460px;
+  display: flex; align-items: stretch; min-height: 440px;
 }
+.detail-row + .detail-row { border-top: 1px solid var(--border); }
+.detail-row + .detail-full { border-top: 1px solid var(--border); }
+.detail-full + .detail-row { border-top: 1px solid var(--border); }
 .detail-row--reverse { flex-direction: row-reverse; }
 .detail-row__img {
   width: 50%; overflow: hidden; background: #F0F0F2;
@@ -361,23 +366,23 @@ body {
 
 /* ===== CTA — S급 임팩트 ===== */
 .cta { text-align: center; }
-/* [S급] cta headline 42px */
+/* [S급] cta headline 38px */
 .cta__headline {
-  font-size: 42px; font-weight: 900; color: var(--black);
-  line-height: 1.25; margin-bottom: 20px; letter-spacing: -0.045em;
+  font-size: 38px; font-weight: 900; color: var(--black);
+  line-height: 1.28; margin-bottom: 18px; letter-spacing: -0.045em;
 }
 /* [S급] cta sub 17px */
 .cta__sub { font-size: 17px; color: var(--body); margin-bottom: 44px; line-height: 1.65; }
-/* [S급] CTA 버튼 — 대폭 강화, 그림자 + 크기 */
+/* [S급] CTA 버튼 */
 .cta__btn {
   display: inline-block; background: var(--accent); color: #fff;
-  font-size: 22px; font-weight: 800; padding: 24px 80px;
-  border-radius: 60px; margin-bottom: 24px; letter-spacing: 0.02em;
-  box-shadow: 0 8px 40px rgba(230,0,45,0.35), 0 2px 8px rgba(0,0,0,0.1);
+  font-size: 20px; font-weight: 800; padding: 22px 68px;
+  border-radius: 60px; margin-bottom: 20px; letter-spacing: 0.02em;
+  box-shadow: 0 6px 32px rgba(230,0,45,0.3), 0 2px 6px rgba(0,0,0,0.08);
 }
 /* [S급] cta bonus 20px */
-.cta__bonus { font-size: 20px; color: var(--accent); font-weight: 800; margin-bottom: 56px; }
-.cta__badges { display: flex; justify-content: center; gap: 48px; margin-bottom: 56px; }
+.cta__bonus { font-size: 20px; color: var(--accent); font-weight: 800; margin-bottom: 40px; }
+.cta__badges { display: flex; justify-content: center; gap: 48px; margin-bottom: 40px; }
 .cta__badge { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 /* [S급] badge icon 72px */
 .cta__badge-icon {
@@ -387,7 +392,7 @@ body {
 }
 .cta__badge-icon svg { width: 32px; height: 32px; stroke: var(--accent); stroke-width: 1.8; fill: none; }
 .cta__badge-label { font-size: 13px; font-weight: 700; color: var(--body); }
-.cta__compliance { padding-top: 32px; border-top: 1px solid rgba(0,0,0,0.06); max-width: 640px; margin: 0 auto; }
+.cta__compliance { padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.06); max-width: 640px; margin: 0 auto; }
 .cta__compliance p { font-size: 10px; color: var(--hint); line-height: 1.7; margin-bottom: 2px; }
 
 /* ===== 구분선 ===== */
@@ -456,7 +461,7 @@ body {
     <h2 class="sec-title" id="reasonsHeadline"></h2>
     <div class="reasons__cards" id="reasonsCards"></div>
   </div>
-  <div class="section-pad bg-white">
+  <div class="section-pad--tight bg-white">
     <h2 class="sec-title" id="specsTitle"></h2>
     <div class="specs__table" id="specsTable"></div>
     <div class="specs__compare" id="specsCompare"></div>
@@ -478,7 +483,7 @@ body {
 
 <!-- SLIDE 6: CTA -->
 <div class="slide cta" data-slide-id="cta">
-  <div class="section-pad" id="ctaSection">
+  <div class="section-pad section-pad--cta" id="ctaSection">
     <h2 class="cta__headline" id="ctaHeadline"></h2>
     <p class="cta__sub" id="ctaSub"></p>
     <div class="cta__btn" id="ctaUrgency"></div>
