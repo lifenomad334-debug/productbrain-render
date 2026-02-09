@@ -49,6 +49,9 @@
 .theme-premium_navy .reasons__num { color: var(--gold) !important; }
 .theme-premium_navy .icon-grid__item svg { stroke: var(--gold) !important; }
 .theme-premium_navy .hero__overlay { background: linear-gradient(180deg, rgba(27,42,74,0) 0%, rgba(27,42,74,0.85) 100%) !important; }
+/* 오버레이 위에서는 hook을 밝은색으로 */
+.theme-premium_navy .hero__overlay .hero__hook { color: #E8DCC8 !important; opacity: 1 !important; }
+.theme-premium_navy .hero__overlay .hero__sub { color: rgba(255,255,255,0.85) !important; }
 
 /* ===== 테마: 내추럴 웜 ===== */
 .theme-natural_warm {
@@ -65,6 +68,9 @@
 .theme-natural_warm .reasons__card { border-left-color: var(--accent) !important; }
 .theme-natural_warm .reasons__num { color: var(--accent) !important; }
 .theme-natural_warm .hero__overlay { background: linear-gradient(180deg, rgba(77,124,58,0) 0%, rgba(30,50,20,0.82) 100%) !important; }
+/* 오버레이 위에서는 hook을 밝은색으로 */
+.theme-natural_warm .hero__overlay .hero__hook { color: #D4E8C8 !important; opacity: 1 !important; }
+.theme-natural_warm .hero__overlay .hero__sub { color: rgba(255,255,255,0.85) !important; }
 
 html { -webkit-text-size-adjust: none; }
 
@@ -446,8 +452,8 @@ body {
   </div>
 </div>
 
-<!-- SLIDE 3: DETAILS — 좌우 교차 -->
-<div class="slide detail-section" data-slide-id="details" id="slideDetails"></div>
+<!-- SLIDE 3+: DETAILS — 각 포인트가 개별 슬라이드 -->
+<div class="detail-section" id="slideDetails"></div>
 
 <!-- [S급] Wave Divider -->
 <svg class="wave-divider" viewBox="0 0 780 48" preserveAspectRatio="none" fill="var(--section-alt)">
@@ -641,13 +647,18 @@ function render(d) {
     bg.appendChild(c);
   });
 
-  // DETAILS — 좌우 교차 레이아웃
+  // DETAILS — 각 포인트를 개별 슬라이드로 분리
   var dc = document.getElementById('slideDetails');
   d.details.blocks.forEach(function(block, i) {
     var hasImg = (IMG.length > i + 1);
     var numData = extractNumber(block.headline, block.body);
     var isReverse = (i % 2 === 1);
     var bgClass = (i % 2 === 0) ? 'bg-white' : 'bg-alt';
+
+    // 각 detail block을 개별 slide div로 감싸기
+    var slideWrapper = document.createElement('div');
+    slideWrapper.className = 'slide';
+    slideWrapper.setAttribute('data-slide-id', 'details-' + (i + 1));
 
     if (hasImg) {
       var row = document.createElement('div');
@@ -667,7 +678,7 @@ function render(d) {
           '<h2 class="detail-block__headline">' + headlineText + '</h2>' +
           '<p class="detail-block__body">' + block.body + '</p>' +
         '</div>';
-      dc.appendChild(row);
+      slideWrapper.appendChild(row);
     } else {
       var wrapper = document.createElement('div');
       wrapper.className = 'detail-full ' + bgClass;
@@ -681,8 +692,9 @@ function render(d) {
         '<h2 class="detail-block__headline">' + headlineText2 + '</h2>' +
         '<p class="detail-block__body">' + block.body + '</p>' +
         '</div>';
-      dc.appendChild(wrapper);
+      slideWrapper.appendChild(wrapper);
     }
+    dc.appendChild(slideWrapper);
   });
 
   // REASONS
