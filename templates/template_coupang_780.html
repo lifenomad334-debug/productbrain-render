@@ -19,15 +19,21 @@
   --bg-white: #FFFFFF;
   --bg-light: #F5F5F7;
   --accent: #E6002D;
-  --accent-soft: #FFF0F0;
-  --accent-mid: #FFD6D6;
+  --accent-soft: #FFF0F3;
+  --accent-mid: #FFD6DE;
   --accent2: #2563EB;
   --accent2-soft: #EFF6FF;
   --green: #16A34A;
   --green-soft: #F0FDF4;
   --gold: #D97706;
-  --cta-grad: linear-gradient(180deg, #FFF 0%, #FFF5F5 50%, #FFEAEA 100%);
-  --section-alt: #F5F5F7;
+  --cta-grad: linear-gradient(135deg, #FF4757 0%, #E6002D 50%, #C70025 100%);
+  --section-alt: #F7F7FA;
+  /* 새로운 변수 */
+  --problem-bg: #FFF8F0;
+  --problem-accent: #E85D04;
+  --benefit-bg: #F0F7FF;
+  --cta-bg: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  --section-divider: #F0F0F5;
 }
 
 /* ===== 테마: 모던 레드 (기본) ===== */
@@ -35,9 +41,12 @@
 
 /* ===== 테마: 프리미엄 네이비 ===== */
 .theme-premium_navy {
-  --accent: #1B2A4A; --accent-soft: #F0F2F7; --accent-mid: #D4DAE8;
-  --gold: #C9A962; --cta-grad: linear-gradient(180deg, #FFF 0%, #F5F2EB 50%, #EAE4D8 100%);
-  --section-alt: #F7F5F0; --border: #DDD8CE;
+  --accent: #1B2A4A; --accent-soft: #EEF1F8; --accent-mid: #C8D1E4;
+  --gold: #D4A843; --cta-grad: linear-gradient(135deg, #D4A843 0%, #C9A030 50%, #B8922A 100%);
+  --section-alt: #F5F3EE; --border: #D5CFC3;
+  --problem-bg: #FDF8F0; --problem-accent: #C9A030;
+  --benefit-bg: #F0F2F8;
+  --cta-bg: linear-gradient(180deg, #1B2A4A 0%, #152238 50%, #0F1A2E 100%);
 }
 .theme-premium_navy .hero__hook,
 .theme-premium_navy .benefit__hl,
@@ -55,9 +64,12 @@
 
 /* ===== 테마: 내추럴 웜 ===== */
 .theme-natural_warm {
-  --accent: #4D7C3A; --accent-soft: #F2F7EE; --accent-mid: #D4E8C8;
-  --gold: #A67C52; --cta-grad: linear-gradient(180deg, #FFF 0%, #FAF6EE 50%, #F0E8D8 100%);
-  --section-alt: #FBF8F2; --border: #E5DDD0;
+  --accent: #3D7A2A; --accent-soft: #EFF7EB; --accent-mid: #C8E0BC;
+  --gold: #B87830; --cta-grad: linear-gradient(135deg, #3D7A2A 0%, #2E6B1D 50%, #245A16 100%);
+  --section-alt: #FAF7F0; --border: #DDD5C5;
+  --problem-bg: #FEF8F0; --problem-accent: #B87830;
+  --benefit-bg: #F0F6EC;
+  --cta-bg: linear-gradient(180deg, #2C4A20 0%, #1E3516 50%, #162A10 100%);
 }
 .theme-natural_warm .hero__hook,
 .theme-natural_warm .benefit__hl,
@@ -128,8 +140,9 @@ body {
 
 .point-badge {
   display: inline-block; background: var(--accent); color: #fff;
-  font-size: 11px; font-weight: 800; padding: 7px 20px;
-  border-radius: 20px; letter-spacing: 0.08em;
+  font-size: 12px; font-weight: 900; padding: 8px 22px;
+  border-radius: 24px; letter-spacing: 0.12em;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
   margin-bottom: 18px;
 }
 
@@ -139,11 +152,16 @@ body {
   letter-spacing: 0.2em; text-transform: uppercase;
   text-align: center; margin-bottom: 14px;
 }
-/* [S급] sec-title 40px */
+/* [S급] sec-title 40px + 악센트 밑줄 */
 .sec-title {
   font-size: 40px; font-weight: 900; color: var(--black);
   text-align: center; line-height: 1.25; margin-bottom: 20px;
   letter-spacing: -0.045em; word-break: keep-all;
+}
+.sec-title::after {
+  content: ''; display: block; width: 56px; height: 4px;
+  background: var(--accent); border-radius: 2px;
+  margin: 20px auto 0;
 }
 .sec-sub {
   font-size: 16px; color: var(--sub); text-align: center;
@@ -198,22 +216,22 @@ body {
 
 /* ===== PROBLEM ===== */
 .problem__list { list-style: none; max-width: 640px; margin: 0 auto; }
-/* [S급] problem item: 더 큰 패딩, 강한 그림자, 좌측 악센트 보더 */
+/* [S급] problem item: 따뜻한 경고색 배경, 더 강한 대비 */
 .problem__item {
   display: flex; align-items: center; gap: 18px;
-  padding: 26px 32px; background: var(--bg-white);
+  padding: 26px 32px; background: #FFFFFF;
   border-radius: 16px; margin-bottom: 14px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  border-left: 4px solid var(--accent-mid);
+  box-shadow: 0 3px 16px rgba(0,0,0,0.07);
+  border-left: 5px solid var(--problem-accent, var(--accent-mid));
   transition: transform 0.2s;
 }
-/* [S급] problem icon: filled 스타일 */
+/* [S급] problem icon: filled 스타일 — 더 진한 배경 */
 .problem__icon {
-  font-size: 24px; flex-shrink: 0; width: 48px; height: 48px;
+  font-size: 24px; flex-shrink: 0; width: 52px; height: 52px;
   display: flex; align-items: center; justify-content: center;
-  background: var(--accent-soft); border-radius: 14px;
+  background: #FFF0E0; border-radius: 14px;
 }
-.problem__icon svg { width: 24px; height: 24px; stroke: var(--accent); stroke-width: 2; fill: none; }
+.problem__icon svg { width: 26px; height: 26px; stroke: var(--problem-accent, #E85D04); stroke-width: 2; fill: none; }
 /* [S급] problem text 16px */
 .problem__text { font-size: 16px; font-weight: 600; color: var(--dark); line-height: 1.55; }
 /* [S급] bridge 강화 */
@@ -227,23 +245,24 @@ body {
 
 /* ===== BENEFITS CARDS ===== */
 .benefit-cards { max-width: 640px; margin: 0 auto; }
-/* [S급] benefit-card: 카드형으로 변경, 배경+그림자 추가 */
+/* [S급] benefit-card: 밝은 색상 배경, 더 강한 그림자 */
 .benefit-card {
   display: flex; align-items: center; gap: 24px;
   padding: 32px 28px; margin-bottom: 16px;
-  background: var(--bg-white);
+  background: #FFFFFF;
   border-radius: 20px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.04);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.05);
+  border-left: 4px solid var(--accent);
 }
 .benefit-card:last-child { margin-bottom: 0; }
-/* [S급] benefit icon 72px */
+/* [S급] benefit icon 72px — 강한 배경색 */
 .benefit__icon {
   width: 72px; height: 72px; border-radius: 20px;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; background: var(--accent-soft);
+  flex-shrink: 0; background: var(--accent); 
 }
-.benefit__icon svg { width: 32px; height: 32px; stroke: var(--accent); stroke-width: 1.8; fill: none; }
+.benefit__icon svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 1.8; fill: none; }
 .benefit__info { flex: 1; }
 /* [S급] benefit title 19px */
 .benefit__title { font-size: 19px; font-weight: 800; color: var(--black); line-height: 1.35; margin-bottom: 6px; }
@@ -370,36 +389,37 @@ body {
 }
 .faq__a { font-size: 15px; color: var(--body); line-height: 1.8; padding-left: 44px; }
 
-/* ===== CTA — S급 임팩트 ===== */
-.cta { text-align: center; }
-/* [S급] cta headline 38px */
+/* ===== CTA — S급 임팩트 (다크 배경) ===== */
+.cta { text-align: center; background: var(--cta-bg) !important; }
+/* [S급] cta headline 38px — white on dark */
 .cta__headline {
-  font-size: 38px; font-weight: 900; color: var(--black);
+  font-size: 38px; font-weight: 900; color: #FFFFFF;
   line-height: 1.28; margin-bottom: 18px; letter-spacing: -0.045em;
 }
 /* [S급] cta sub 17px */
-.cta__sub { font-size: 17px; color: var(--body); margin-bottom: 44px; line-height: 1.65; }
-/* [S급] CTA 버튼 */
+.cta__sub { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 44px; line-height: 1.65; }
+/* [S급] CTA 버튼 — 강렬한 그라디언트 */
 .cta__btn {
-  display: inline-block; background: var(--accent); color: #fff;
+  display: inline-block; background: var(--cta-grad); color: #fff;
   font-size: 20px; font-weight: 800; padding: 22px 68px;
   border-radius: 60px; margin-bottom: 20px; letter-spacing: 0.02em;
-  box-shadow: 0 6px 32px rgba(230,0,45,0.3), 0 2px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 40px rgba(230,0,45,0.4), 0 2px 8px rgba(0,0,0,0.2);
 }
-/* [S급] cta bonus 20px */
-.cta__bonus { font-size: 20px; color: var(--accent); font-weight: 800; margin-bottom: 40px; }
+/* [S급] cta bonus 20px — white */
+.cta__bonus { font-size: 20px; color: #FFFFFF; font-weight: 800; margin-bottom: 40px; }
 .cta__badges { display: flex; justify-content: center; gap: 48px; margin-bottom: 40px; }
 .cta__badge { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-/* [S급] badge icon 72px */
+/* [S급] badge icon 72px — 밝은 테두리 */
 .cta__badge-icon {
   width: 72px; height: 72px; border-radius: 50%;
-  background: var(--bg-white); box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   display: flex; align-items: center; justify-content: center;
 }
-.cta__badge-icon svg { width: 32px; height: 32px; stroke: var(--accent); stroke-width: 1.8; fill: none; }
-.cta__badge-label { font-size: 13px; font-weight: 700; color: var(--body); }
-.cta__compliance { padding-top: 24px; border-top: 1px solid rgba(0,0,0,0.06); max-width: 640px; margin: 0 auto; }
-.cta__compliance p { font-size: 10px; color: var(--hint); line-height: 1.7; margin-bottom: 2px; }
+.cta__badge-icon svg { width: 32px; height: 32px; stroke: #FFFFFF; stroke-width: 1.8; fill: none; }
+.cta__badge-label { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); }
+.cta__compliance { padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); max-width: 640px; margin: 0 auto; }
+.cta__compliance p { font-size: 10px; color: rgba(255,255,255,0.4); line-height: 1.7; margin-bottom: 2px; }
 
 /* ===== 구분선 ===== */
 .divider { height: 1px; background: var(--border); margin: 0; }
