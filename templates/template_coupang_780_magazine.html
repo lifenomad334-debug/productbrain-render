@@ -768,31 +768,74 @@ function render(d) {
 render(D);
 
 // ============================================================
-// Style Overrides (Phase 1: fontSize + color)
+// Style Overrides v2: global/cuts fontScale + textColor
 // ============================================================
-function applyStyleOverrides(overrides) {
-  if (!overrides || typeof overrides !== 'object') return;
-  var ALLOWED = ['fontSize','color'];
-  var FIELD_DOM = {
-    'hero.product_title':'#heroTitle','hero.hook_line':'#heroHook',
-    'hero.sub_hook':'#heroSub','hero.badge':'#heroBadge',
-    'problem.headline':'#problemHeadline','problem.bridge':'#problemBridge',
-    'benefits.section_title':'#benefitsHeadline',
-    'selection_reasons.headline':'#reasonsHeadline',
-    'specs.section_title':'#specsTitle',
-    'faq.section_title':'#faqTitle',
-    'cta.headline':'#ctaHeadline','cta.sub_text':'#ctaSub',
-    'cta.urgency':'#ctaUrgency','cta.bonus':'#ctaBonus'
-  };
-  Object.keys(overrides).forEach(function(fk) {
-    var styles = overrides[fk];
-    if (!styles || typeof styles !== 'object') return;
-    var el = null;
-    if (FIELD_DOM[fk]) el = document.querySelector(FIELD_DOM[fk]);
-    if (!el) el = document.querySelector('[data-field-key="' + fk + '"]');
-    if (!el) return;
-    ALLOWED.forEach(function(prop) {
-      if (styles[prop]) el.style[prop] = styles[prop];
+function applyStyleOverrides(ov) {
+  if (!ov || typeof ov !== 'object') return;
+
+  // v1 호환: flat 구조면 기존 방식
+  if (!ov.global && !ov.cuts) {
+    var ALLOWED = ['fontSize','color'];
+    var FIELD_DOM = {
+      'hero.product_title':'#heroTitle','hero.hook_line':'#heroHook',
+      'hero.sub_hook':'#heroSub','hero.badge':'#heroBadge',
+      'problem.headline':'#problemHeadline','problem.bridge':'#problemBridge',
+      'benefits.section_title':'#benefitsHeadline',
+      'selection_reasons.headline':'#reasonsHeadline',
+      'specs.section_title':'#specsTitle',
+      'faq.section_title':'#faqTitle',
+      'cta.headline':'#ctaHeadline','cta.sub_text':'#ctaSub',
+      'cta.urgency':'#ctaUrgency','cta.bonus':'#ctaBonus'
+    };
+    Object.keys(ov).forEach(function(fk) {
+      var styles = ov[fk];
+      if (!styles || typeof styles !== 'object') return;
+      var el = null;
+      if (FIELD_DOM[fk]) el = document.querySelector(FIELD_DOM[fk]);
+      if (!el) el = document.querySelector('[data-field-key="' + fk + '"]');
+      if (!el) return;
+      ALLOWED.forEach(function(prop) {
+        if (styles[prop]) el.style[prop] = styles[prop];
+      });
+    });
+    return;
+  }
+
+  // v2: global + cuts 방식
+  var globalStyle = ov.global || {};
+  var cutsStyle = ov.cuts || {};
+
+  // 각 슬라이드에 대해 적용
+  var slides = document.querySelectorAll('[data-slide-id]');
+  slides.forEach(function(slide) {
+    var slideId = slide.getAttribute('data-slide-id');
+    // 해당 컷의 스타일 (컷 우선, 없으면 글로벌)
+    var cutStyle = cutsStyle[slideId] || {};
+    var effectiveScale = cutStyle.fontScale || globalStyle.fontScale || null;
+    var effectiveColor = cutStyle.textColor || globalStyle.textColor || null;
+
+    if (!effectiveScale && !effectiveColor) return;
+
+    // 슬라이드 내 모든 텍스트 요소
+    var textEls = slide.querySelectorAll('h1,h2,h3,p,div,span');
+    textEls.forEach(function(el) {
+      // fontScale 적용
+      if (effectiveScale && effectiveScale !== 1) {
+        var base = el.getAttribute('data-base-fontsize');
+        if (!base) {
+          var computed = window.getComputedStyle(el).fontSize;
+          base = computed;
+          el.setAttribute('data-base-fontsize', computed);
+        }
+        var baseNum = parseFloat(base);
+        if (baseNum > 0) {
+          el.style.fontSize = (baseNum * effectiveScale) + 'px';
+        }
+      }
+      // textColor 적용
+      if (effectiveColor) {
+        el.style.color = effectiveColor;
+      }
     });
   });
 }
