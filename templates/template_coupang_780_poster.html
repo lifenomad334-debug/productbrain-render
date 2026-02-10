@@ -373,7 +373,7 @@ function render(d){
     var list=document.getElementById('problemList');
     d.problem.pain_points.forEach(function(p,pi){
       var item=document.createElement('div');item.className='prob-p__item';
-      item.innerHTML='<div class="prob-p__icon">'+PROBLEM_ICONS[pi%PROBLEM_ICONS.length]+'</div><div class="prob-p__text">'+p.text+'</div>';
+      item.innerHTML='<div class="prob-p__icon">'+PROBLEM_ICONS[pi%PROBLEM_ICONS.length]+'</div><div class="prob-p__text" data-field-key="problem.pain_points.'+pi+'.text">'+p.text+'</div>';
       list.appendChild(item);
     });
     var br=document.getElementById('problemBridge');
@@ -383,10 +383,10 @@ function render(d){
   // BENEFITS
   document.getElementById('benefitsHeadline').textContent=d.benefits.section_title||'';
   var bg=document.getElementById('benefitsGrid');
-  d.benefits.items.forEach(function(b){
+  d.benefits.items.forEach(function(b,bi){
     var card=document.createElement('div');card.className='bp-card';
-    var hlHtml=b.highlight_value?'<div class="bp__hl">'+b.highlight_value+'</div>':'';
-    card.innerHTML='<div class="bp__icon">'+pickIcon(b.title,'benefit')+'</div><div class="bp__info"><div class="bp__title">'+b.title+'</div>'+hlHtml+'<div class="bp__desc">'+b.description+'</div></div>';
+    var hlHtml=b.highlight_value?'<div class="bp__hl" data-field-key="benefits.items.'+bi+'.highlight_value">'+b.highlight_value+'</div>':'';
+    card.innerHTML='<div class="bp__icon">'+pickIcon(b.title,'benefit')+'</div><div class="bp__info"><div class="bp__title" data-field-key="benefits.items.'+bi+'.title">'+b.title+'</div>'+hlHtml+'<div class="bp__desc" data-field-key="benefits.items.'+bi+'.description">'+b.description+'</div></div>';
     bg.appendChild(card);
   });
 
@@ -405,14 +405,14 @@ function render(d){
       row.className='dp-slide'+(isReverse?' dp-slide--rev':'')+(i%2===0?' dp-slide--alt':' dp-slide--base');
       row.innerHTML='<div class="dp__img" id="imgDetail'+i+'"><div class="dp__img-ph">POINT 0'+(i+1)+'</div></div>'+
         '<div class="dp__text"><span class="badge-p">POINT 0'+(i+1)+'</span>'+numHtml+
-        '<h2 class="dp__headline">'+headlineText+'</h2><p class="dp__body">'+block.body+'</p></div>';
+        '<h2 class="dp__headline" data-field-key="details.blocks.'+i+'.headline">'+headlineText+'</h2><p class="dp__body" data-field-key="details.blocks.'+i+'.body">'+block.body+'</p></div>';
       slideW.appendChild(row);
     }else{
       var full=document.createElement('div');
       full.className='dp-slide'+(i%2===0?' dp-slide--alt':' dp-slide--base');
       full.style.display='block';
       full.innerHTML='<div class="dp__text dp__text--full"><span class="badge-p">POINT 0'+(i+1)+'</span>'+numHtml+
-        '<h2 class="dp__headline">'+headlineText+'</h2><p class="dp__body">'+block.body+'</p></div>';
+        '<h2 class="dp__headline" data-field-key="details.blocks.'+i+'.headline">'+headlineText+'</h2><p class="dp__body" data-field-key="details.blocks.'+i+'.body">'+block.body+'</p></div>';
       slideW.appendChild(full);
     }
     dc.appendChild(slideW);
@@ -427,7 +427,7 @@ function render(d){
     var rc=document.getElementById('reasonsCards');
     (reasonsData.items||[]).forEach(function(item,i){
       var card=document.createElement('div');card.className='rp-card';
-      card.innerHTML='<div class="rp__icon">'+pickIcon(item.title,'reason')+'</div><div class="rp__content"><div class="rp__num">REASON 0'+(i+1)+'</div><div class="rp__title">'+(item.title||'')+'</div><div class="rp__text">'+(item.text||'')+'</div></div>';
+      card.innerHTML='<div class="rp__icon">'+pickIcon(item.title,'reason')+'</div><div class="rp__content"><div class="rp__num">REASON 0'+(i+1)+'</div><div class="rp__title" data-field-key="selection_reasons.items.'+i+'.title">'+(item.title||'')+'</div><div class="rp__text" data-field-key="selection_reasons.items.'+i+'.text">'+(item.text||'')+'</div></div>';
       rc.appendChild(card);
     });
   }
@@ -448,7 +448,7 @@ function render(d){
   else{
     document.getElementById('faqTitle').textContent=d.faq.section_title||'자주 묻는 질문';
     var fi=document.getElementById('faqItems');
-    d.faq.items.forEach(function(f){var item=document.createElement('div');item.className='fp-item';item.innerHTML='<div class="fp__q"><span class="fp__q-tag">Q</span><span>'+f.question+'</span></div><div class="fp__a">'+f.answer+'</div>';fi.appendChild(item);});
+    d.faq.items.forEach(function(f,fi){var item=document.createElement('div');item.className='fp-item';item.innerHTML='<div class="fp__q"><span class="fp__q-tag">Q</span><span data-field-key="faq.items.'+fi+'.question">'+f.question+'</span></div><div class="fp__a" data-field-key="faq.items.'+fi+'.answer">'+f.answer+'</div>';fi.appendChild(item);});
   }
 
   // CTA
@@ -462,6 +462,8 @@ function render(d){
   if(d.compliance&&d.compliance.legal_notices){d.compliance.legal_notices.forEach(function(n){var p=document.createElement('p');p.textContent=n;comp.appendChild(p);});}
 }
 render(D);
+function applyStyleOverrides(ov){if(!ov||typeof ov!=='object')return;var A=['fontSize','color'];var M={'hero.product_title':'#heroTitle','hero.hook_line':'#heroHook','hero.sub_hook':'#heroSub','hero.badge':'#heroBadge','problem.headline':'#problemHeadline','problem.bridge':'#problemBridge','benefits.section_title':'#benefitsHeadline','selection_reasons.headline':'#reasonsHeadline','specs.section_title':'#specsTitle','faq.section_title':'#faqTitle','cta.headline':'#ctaHeadline','cta.sub_text':'#ctaSub','cta.urgency':'#ctaUrgency','cta.bonus':'#ctaBonus'};Object.keys(ov).forEach(function(fk){var s=ov[fk];if(!s||typeof s!=='object')return;var el=null;if(M[fk])el=document.querySelector(M[fk]);if(!el)el=document.querySelector('[data-field-key="'+fk+'"]');if(!el)return;A.forEach(function(p){if(s[p])el.style[p]=s[p];});});}
+applyStyleOverrides(D.style_overrides);
 
 // 이미지 배치
 var n=IMG.length;

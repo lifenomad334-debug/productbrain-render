@@ -599,14 +599,14 @@ function render(d) {
   // BENEFITS — 2×2 그리드
   document.getElementById('benefitsHeadline').textContent = d.benefits.section_title || '';
   var bg = document.getElementById('benefitsGrid');
-  d.benefits.items.forEach(function(b) {
+  d.benefits.items.forEach(function(b, bi) {
     var card = document.createElement('div');
     card.className = 'benefit-mag-card';
-    var hlHtml = b.highlight_value ? '<div class="benefit-mag__hl">' + b.highlight_value + '</div>' : '';
+    var hlHtml = b.highlight_value ? '<div class="benefit-mag__hl" data-field-key="benefits.items.' + bi + '.highlight_value">' + b.highlight_value + '</div>' : '';
     card.innerHTML = '<div class="benefit-mag__icon">' + pickIcon(b.title, 'benefit') + '</div>' +
-      '<div class="benefit-mag__title">' + b.title + '</div>' +
+      '<div class="benefit-mag__title" data-field-key="benefits.items.' + bi + '.title">' + b.title + '</div>' +
       hlHtml +
-      '<div class="benefit-mag__desc">' + b.description + '</div>';
+      '<div class="benefit-mag__desc" data-field-key="benefits.items.' + bi + '.description">' + b.description + '</div>';
     bg.appendChild(card);
   });
 
@@ -620,7 +620,7 @@ function render(d) {
       var item = document.createElement('div');
       item.className = 'problem-mag-item';
       item.innerHTML = '<div class="problem-mag__icon">' + PROBLEM_ICONS[pi % PROBLEM_ICONS.length] + '</div>' +
-        '<div class="problem-mag__text">' + p.text + '</div>';
+        '<div class="problem-mag__text" data-field-key="problem.pain_points.' + pi + '.text">' + p.text + '</div>';
       list.appendChild(item);
     });
     var bridge = document.getElementById('problemBridge');
@@ -656,8 +656,8 @@ function render(d) {
         '<div class="detail-mag__text">' +
           '<span class="point-badge-mag">POINT 0' + (i+1) + '</span>' +
           numHtml +
-          '<h2 class="detail-mag__headline">' + headlineText + '</h2>' +
-          '<p class="detail-mag__body">' + block.body + '</p>' +
+          '<h2 class="detail-mag__headline" data-field-key="details.blocks.' + i + '.headline">' + headlineText + '</h2>' +
+          '<p class="detail-mag__body" data-field-key="details.blocks.' + i + '.body">' + block.body + '</p>' +
         '</div>';
       inner.appendChild(card);
     } else {
@@ -667,8 +667,8 @@ function render(d) {
         '<div class="detail-mag__text">' +
           '<span class="point-badge-mag">POINT 0' + (i+1) + '</span>' +
           numHtml +
-          '<h2 class="detail-mag__headline">' + headlineText + '</h2>' +
-          '<p class="detail-mag__body">' + block.body + '</p>' +
+          '<h2 class="detail-mag__headline" data-field-key="details.blocks.' + i + '.headline">' + headlineText + '</h2>' +
+          '<p class="detail-mag__body" data-field-key="details.blocks.' + i + '.body">' + block.body + '</p>' +
         '</div>';
       inner.appendChild(card2);
     }
@@ -697,8 +697,8 @@ function render(d) {
       card.innerHTML = '<div class="reason-mag__icon">' + pickIcon(item.title, 'reason') + '</div>' +
         '<div class="reason-mag__content">' +
           '<div class="reason-mag__num">REASON 0' + (i+1) + '</div>' +
-          '<div class="reason-mag__title">' + (item.title || '') + '</div>' +
-          '<div class="reason-mag__text">' + (item.text || '') + '</div>' +
+          '<div class="reason-mag__title" data-field-key="selection_reasons.items.' + i + '.title">' + (item.title || '') + '</div>' +
+          '<div class="reason-mag__text" data-field-key="selection_reasons.items.' + i + '.text">' + (item.text || '') + '</div>' +
         '</div>';
       rc.appendChild(card);
     });
@@ -731,11 +731,11 @@ function render(d) {
   } else {
     document.getElementById('faqTitle').textContent = d.faq.section_title || '자주 묻는 질문';
     var fi = document.getElementById('faqItems');
-    d.faq.items.forEach(function(f) {
+    d.faq.items.forEach(function(f, fi) {
       var item = document.createElement('div');
       item.className = 'faq-mag-item';
-      item.innerHTML = '<div class="faq-mag__q"><span class="faq-mag__q-tag">Q</span><span>' + f.question + '</span></div>' +
-        '<div class="faq-mag__a">' + f.answer + '</div>';
+      item.innerHTML = '<div class="faq-mag__q"><span class="faq-mag__q-tag">Q</span><span data-field-key="faq.items.' + fi + '.question">' + f.question + '</span></div>' +
+        '<div class="faq-mag__a" data-field-key="faq.items.' + fi + '.answer">' + f.answer + '</div>';
       fi.appendChild(item);
     });
   }
@@ -766,6 +766,37 @@ function render(d) {
 }
 
 render(D);
+
+// ============================================================
+// Style Overrides (Phase 1: fontSize + color)
+// ============================================================
+function applyStyleOverrides(overrides) {
+  if (!overrides || typeof overrides !== 'object') return;
+  var ALLOWED = ['fontSize','color'];
+  var FIELD_DOM = {
+    'hero.product_title':'#heroTitle','hero.hook_line':'#heroHook',
+    'hero.sub_hook':'#heroSub','hero.badge':'#heroBadge',
+    'problem.headline':'#problemHeadline','problem.bridge':'#problemBridge',
+    'benefits.section_title':'#benefitsHeadline',
+    'selection_reasons.headline':'#reasonsHeadline',
+    'specs.section_title':'#specsTitle',
+    'faq.section_title':'#faqTitle',
+    'cta.headline':'#ctaHeadline','cta.sub_text':'#ctaSub',
+    'cta.urgency':'#ctaUrgency','cta.bonus':'#ctaBonus'
+  };
+  Object.keys(overrides).forEach(function(fk) {
+    var styles = overrides[fk];
+    if (!styles || typeof styles !== 'object') return;
+    var el = null;
+    if (FIELD_DOM[fk]) el = document.querySelector(FIELD_DOM[fk]);
+    if (!el) el = document.querySelector('[data-field-key="' + fk + '"]');
+    if (!el) return;
+    ALLOWED.forEach(function(prop) {
+      if (styles[prop]) el.style[prop] = styles[prop];
+    });
+  });
+}
+applyStyleOverrides(D.style_overrides);
 
 // ============================================================
 // 이미지 배치
