@@ -2,13 +2,13 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-// Sharp 이미지 전처리 (설치 실패 시 graceful fallback)
+// Sharp ?��?지 ?�처�?(?�치 ?�패 ??graceful fallback)
 let imageProcessor = null;
 try {
   imageProcessor = require('./image-processor');
-  console.log('[RENDER] Sharp 이미지 처리 모듈 로드 성공');
+  console.log('[RENDER] Sharp ?��?지 처리 모듈 로드 ?�공');
 } catch (e) {
-  console.warn('[RENDER] Sharp 미설치 — 원본 이미지 사용:', e.message);
+  console.warn('[RENDER] Sharp 미설�????�본 ?��?지 ?�용:', e.message);
 }
 
 function getTemplate(platform, layout) {
@@ -21,13 +21,13 @@ function getTemplate(platform, layout) {
   var baseName = platform === 'naver' ? 'naver_860' : 'coupang_780';
   var templatePath = path.join(__dirname, '..', 'templates', `template_${baseName}${layoutSuffix}.html`);
 
-  // 레이아웃 템플릿이 없으면 기본 템플릿으로 fallback
+  // ?�이?�웃 ?�플릿이 ?�으�?기본 ?�플릿으�?fallback
   if (fs.existsSync(templatePath)) {
-    console.log(`[RENDER] 템플릿 로드: template_${baseName}${layoutSuffix}.html`);
+    console.log(`[RENDER] ?�플�?로드: template_${baseName}${layoutSuffix}.html`);
     return fs.readFileSync(templatePath, 'utf-8');
   }
 
-  console.log(`[RENDER] 레이아웃 "${layout}" 템플릿 없음 → 기본 템플릿 사용`);
+  console.log(`[RENDER] ?�이?�웃 "${layout}" ?�플�??�음 ??기본 ?�플�??�용`);
   return fs.readFileSync(path.join(__dirname, '..', 'templates', `template_${baseName}.html`), 'utf-8');
 }
 
@@ -55,16 +55,16 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
   const width = platform === 'naver' ? 860 : 780;
   const template = getTemplate(platform, layout);
 
-  // Sharp 이미지 전처리 (설치되어 있으면)
+  // Sharp ?��?지 ?�처�?(?�치?�어 ?�으�?
   let processedUrls = imageUrls || [];
   if (imageProcessor && processedUrls.length > 0) {
     try {
-      console.log(`[SHARP] 이미지 ${processedUrls.length}장 전처리 시작`);
+      console.log(`[SHARP] ?��?지 ${processedUrls.length}???�처�??�작`);
       const start = Date.now();
       processedUrls = await imageProcessor.preprocessImages(processedUrls);
-      console.log(`[SHARP] 전처리 완료 (${Date.now() - start}ms)`);
+      console.log(`[SHARP] ?�처�??�료 (${Date.now() - start}ms)`);
     } catch (e) {
-      console.error('[SHARP] 전처리 실패, 원본 사용:', e.message);
+      console.error('[SHARP] ?�처�??�패, ?�본 ?�용:', e.message);
       processedUrls = imageUrls || [];
     }
   }
@@ -75,7 +75,7 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
   html = html.replace('__IMAGE_URLS__', JSON.stringify(processedUrls));
   html = html.replace('__DESIGN_STYLE__', JSON.stringify(designStyle || 'modern_red'));
 
-  const tmpFile = path.join('/tmp', `render_${Date.now()}.html`);
+  const tmpFile = path.join(require('os').tmpdir(), `render_${Date.now()}.html`);
   fs.writeFileSync(tmpFile, html);
 
   const b = await getBrowser();
@@ -83,7 +83,7 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
 
   try {
     await page.setViewport({ width, height: 800, deviceScaleFactor: 2 });
-    // 템플릿 JS 콘솔 로그 캡처 (모든 로그)
+    // ?�플�?JS 콘솔 로그 캡처 (모든 로그)
     page.on('console', msg => {
       console.log(`[PUPPETEER] ${msg.type()}: ${msg.text()}`);
     });

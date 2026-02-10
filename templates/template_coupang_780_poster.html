@@ -448,7 +448,7 @@ function render(d){
   else{
     document.getElementById('faqTitle').textContent=d.faq.section_title||'자주 묻는 질문';
     var fi=document.getElementById('faqItems');
-    d.faq.items.forEach(function(f,fi){var item=document.createElement('div');item.className='fp-item';item.innerHTML='<div class="fp__q"><span class="fp__q-tag">Q</span><span data-field-key="faq.items.'+fi+'.question">'+f.question+'</span></div><div class="fp__a" data-field-key="faq.items.'+fi+'.answer">'+f.answer+'</div>';fi.appendChild(item);});
+    d.faq.items.forEach(function(f,idx){var item=document.createElement('div');item.className='fp-item';item.innerHTML='<div class="fp__q"><span class="fp__q-tag">Q</span><span data-field-key="faq.items.'+idx+'.question">'+f.question+'</span></div><div class="fp__a" data-field-key="faq.items.'+idx+'.answer">'+f.answer+'</div>';fi.appendChild(item);});
   }
 
   // CTA
