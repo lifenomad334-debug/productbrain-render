@@ -70,6 +70,7 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
   }
 
   // JSON + image_urls + design_style 주입
+  console.log(`[RENDER] style_overrides:`, JSON.stringify(json.style_overrides || 'none'));
   let html = template.replace('__PRODUCT_DATA__', JSON.stringify(json));
   html = html.replace('__IMAGE_URLS__', JSON.stringify(processedUrls));
   html = html.replace('__DESIGN_STYLE__', JSON.stringify(designStyle || 'modern_red'));
@@ -83,6 +84,15 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
   try {
     await page.setViewport({ width, height: 800, deviceScaleFactor: 2 });
     await page.goto(`file://${tmpFile}`, { waitUntil: 'networkidle0', timeout: 30000 });
+    
+    // 템플릿 JS 콘솔 로그 캡처
+    page.on('console', msg => {
+      const text = msg.text();
+      if (text.includes('[') || text.includes('fontScale') || text.includes('IMG')) {
+        console.log(`[PUPPETEER] ${text}`);
+      }
+    });
+    
     await new Promise(r => setTimeout(r, 500));
 
     const slides = await page.evaluate(() =>
