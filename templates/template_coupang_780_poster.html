@@ -420,7 +420,7 @@ function render(d){
 
   // REASONS
   var reasonsData=d.selection_reasons||null;
-  if(!reasonsData&&d.social_proof){reasonsData={headline:d.social_proof.headline||'',items:(d.social_proof.testimonials||[]).map(function(t){return{icon:'',title:t.persona||'',text:t.text||''};});};}
+  if(!reasonsData&&d.social_proof){reasonsData={headline:d.social_proof.headline||'',items:(d.social_proof.testimonials||[]).map(function(t){return{icon:'',title:t.persona||'',text:t.text||''};})}}
   if(tog.selection_reasons===false||!reasonsData){document.getElementById('reasonsSection').style.display='none';}
   else{
     document.getElementById('reasonsHeadline').textContent=reasonsData.headline||'';
