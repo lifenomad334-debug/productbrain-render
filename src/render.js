@@ -2,12 +2,33 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-function getTemplate(platform) {
-  const templatePath = path.join(__dirname, '..', 'templates', `template_${platform === 'naver' ? 'naver_860' : 'coupang_780'}.html`);
+// Sharp 이미지 전처리 (설치 실패 시 graceful fallback)
+let imageProcessor = null;
+try {
+  imageProcessor = require('./image-processor');
+  console.log('[RENDER] Sharp 이미지 처리 모듈 로드 성공');
+} catch (e) {
+  console.warn('[RENDER] Sharp 미설치 — 원본 이미지 사용:', e.message);
+}
+
+function getTemplate(platform, layout) {
+  // layout: 'classic' (기본), 'magazine', 'poster', 'natural'
+  var layoutSuffix = '';
+  if (layout && layout !== 'classic') {
+    layoutSuffix = '_' + layout;
+  }
+
+  var baseName = platform === 'naver' ? 'naver_860' : 'coupang_780';
+  var templatePath = path.join(__dirname, '..', 'templates', `template_${baseName}${layoutSuffix}.html`);
+
+  // 레이아웃 템플릿이 없으면 기본 템플릿으로 fallback
   if (fs.existsSync(templatePath)) {
+    console.log(`[RENDER] 템플릿 로드: template_${baseName}${layoutSuffix}.html`);
     return fs.readFileSync(templatePath, 'utf-8');
   }
-  return fs.readFileSync(path.join(__dirname, '..', 'templates', 'template_coupang_780.html'), 'utf-8');
+
+  console.log(`[RENDER] 레이아웃 "${layout}" 템플릿 없음 → 기본 템플릿 사용`);
+  return fs.readFileSync(path.join(__dirname, '..', 'templates', `template_${baseName}.html`), 'utf-8');
 }
 
 let browser = null;
@@ -30,13 +51,27 @@ async function getBrowser() {
   return browser;
 }
 
-async function renderSlides(json, platform, imageUrls, designStyle) {
+async function renderSlides(json, platform, imageUrls, designStyle, layout) {
   const width = platform === 'naver' ? 860 : 780;
-  const template = getTemplate(platform);
+  const template = getTemplate(platform, layout);
+
+  // Sharp 이미지 전처리 (설치되어 있으면)
+  let processedUrls = imageUrls || [];
+  if (imageProcessor && processedUrls.length > 0) {
+    try {
+      console.log(`[SHARP] 이미지 ${processedUrls.length}장 전처리 시작`);
+      const start = Date.now();
+      processedUrls = await imageProcessor.preprocessImages(processedUrls);
+      console.log(`[SHARP] 전처리 완료 (${Date.now() - start}ms)`);
+    } catch (e) {
+      console.error('[SHARP] 전처리 실패, 원본 사용:', e.message);
+      processedUrls = imageUrls || [];
+    }
+  }
 
   // JSON + image_urls + design_style 주입
   let html = template.replace('__PRODUCT_DATA__', JSON.stringify(json));
-  html = html.replace('__IMAGE_URLS__', JSON.stringify(imageUrls || []));
+  html = html.replace('__IMAGE_URLS__', JSON.stringify(processedUrls));
   html = html.replace('__DESIGN_STYLE__', JSON.stringify(designStyle || 'modern_red'));
 
   const tmpFile = path.join('/tmp', `render_${Date.now()}.html`);
