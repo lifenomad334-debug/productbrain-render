@@ -83,9 +83,7 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
 
   try {
     await page.setViewport({ width, height: 800, deviceScaleFactor: 2 });
-    await page.goto(`file://${tmpFile}`, { waitUntil: 'networkidle0', timeout: 30000 });
-    
-    // 템플릿 JS 콘솔 로그 캡처
+    // 템플릿 JS 콘솔 로그 캡처 (goto 전에 등록해야 캡처됨)
     page.on('console', msg => {
       const text = msg.text();
       if (text.includes('[') || text.includes('fontScale') || text.includes('IMG')) {
@@ -93,6 +91,7 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
       }
     });
     
+    await page.goto(`file://${tmpFile}`, { waitUntil: 'networkidle0', timeout: 30000 });
     await new Promise(r => setTimeout(r, 500));
 
     const slides = await page.evaluate(() =>
