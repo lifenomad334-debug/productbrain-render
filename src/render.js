@@ -83,12 +83,12 @@ async function renderSlides(json, platform, imageUrls, designStyle, layout) {
 
   try {
     await page.setViewport({ width, height: 800, deviceScaleFactor: 2 });
-    // 템플릿 JS 콘솔 로그 캡처 (goto 전에 등록해야 캡처됨)
+    // 템플릿 JS 콘솔 로그 캡처 (모든 로그)
     page.on('console', msg => {
-      const text = msg.text();
-      if (text.includes('[') || text.includes('fontScale') || text.includes('IMG')) {
-        console.log(`[PUPPETEER] ${text}`);
-      }
+      console.log(`[PUPPETEER] ${msg.type()}: ${msg.text()}`);
+    });
+    page.on('pageerror', err => {
+      console.log(`[PUPPETEER ERROR] ${err.message}`);
     });
     
     await page.goto(`file://${tmpFile}`, { waitUntil: 'networkidle0', timeout: 30000 });
