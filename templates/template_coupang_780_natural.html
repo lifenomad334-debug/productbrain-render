@@ -192,7 +192,10 @@ var comp=document.getElementById('ctaCompliance');if(d.compliance&&d.compliance.
 }
 render(D);
 function applyStyleOverrides(ov){if(!ov||typeof ov!=="object")return;if(!ov.global&&!ov.cuts){var A=["fontSize","color"];var M={"hero.product_title":"#heroTitle","hero.hook_line":"#heroHook","hero.sub_hook":"#heroSub","hero.badge":"#heroBadge","problem.headline":"#problemHeadline","problem.bridge":"#problemBridge","benefits.section_title":"#benefitsHeadline","selection_reasons.headline":"#reasonsHeadline","specs.section_title":"#specsTitle","faq.section_title":"#faqTitle","cta.headline":"#ctaHeadline","cta.sub_text":"#ctaSub","cta.urgency":"#ctaUrgency","cta.bonus":"#ctaBonus"};Object.keys(ov).forEach(function(fk){var s=ov[fk];if(!s||typeof s!=="object")return;var el=null;if(M[fk])el=document.querySelector(M[fk]);if(!el)el=document.querySelector('[data-field-key="'+fk+'"]');if(!el)return;A.forEach(function(p){if(s[p])el.style[p]=s[p];});});return;}var gs=ov.global||{};var cs=ov.cuts||{};document.querySelectorAll("[data-slide-id]").forEach(function(slide){var sid=slide.getAttribute("data-slide-id");var ct=cs[sid]||{};var sc=ct.fontScale||gs.fontScale||null;var co=ct.textColor||gs.textColor||null;if(!sc&&!co)return;slide.querySelectorAll("h1,h2,h3,p,div,span").forEach(function(el){if(sc&&sc!==1){var b=el.getAttribute("data-base-fontsize");if(!b){b=window.getComputedStyle(el).fontSize;el.setAttribute("data-base-fontsize",b);}var n=parseFloat(b);if(n>0)el.style.fontSize=(n*sc)+"px";}if(co)el.style.color=co;});});}
+console.log('[TEMPLATE] style_overrides:', JSON.stringify(D.style_overrides));
+console.log('[TEMPLATE] IMG count:', IMG.length, 'first30:', IMG[0] ? IMG[0].slice(0,30) : 'none');
 applyStyleOverrides(D.style_overrides);
+console.log('[TEMPLATE] applyStyleOverrides done');
 var n=IMG.length;
 if(n>=1){var hv=document.getElementById('heroVisual');var hp=document.getElementById('heroPlaceholder');hp.style.display='none';var hi=document.createElement('img');hi.src=IMG[0];hv.appendChild(hi);}
 for(var di=0;di<7;di++){if(IMG[di+1]){var det=document.getElementById('imgDetail'+di);if(det){det.innerHTML='<img src="'+IMG[di+1]+'" alt="">';}}}

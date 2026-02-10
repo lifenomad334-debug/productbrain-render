@@ -839,7 +839,10 @@ function applyStyleOverrides(ov) {
     });
   });
 }
+console.log('[TEMPLATE] style_overrides:', JSON.stringify(D.style_overrides));
+console.log('[TEMPLATE] IMG count:', IMG.length, 'first30:', IMG[0] ? IMG[0].slice(0,30) : 'none');
 applyStyleOverrides(D.style_overrides);
+console.log('[TEMPLATE] applyStyleOverrides done');
 
 // ============================================================
 // 이미지 배치
