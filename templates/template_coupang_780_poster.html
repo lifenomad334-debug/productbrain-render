@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=780">
+<title>ProductBrain — Poster</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --w: 780px;
+  --px: 60px;
+  --black: #111111;
+  --dark: #1A1A1A;
+  --body: #3A3A3A;
+  --sub: #6E6E6E;
+  --hint: #A0A0A0;
+  --border: #E8E8E8;
+  --bg-white: #FFFFFF;
+  --bg-light: #F5F5F7;
+  --accent: #E6002D;
+  --accent-soft: #FFF0F3;
+  --accent-mid: #FFD6DE;
+  --gold: #D97706;
+  --cta-grad: linear-gradient(135deg, #FF4757 0%, #E6002D 50%, #C70025 100%);
+  --section-alt: #F0F0F5;
+  --problem-bg: #FFF0E0;
+  --problem-accent: #E85D04;
+  --benefit-bg: #E8F0FF;
+  --cta-bg: linear-gradient(180deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+  --p-bg: #0C0C0C;
+  --p-card: #161616;
+  --p-border: #2A2A2A;
+  --p-text: #E8E8E8;
+  --p-sub: #888888;
+}
+
+/* ===== 테마 ===== */
+.theme-modern_red { }
+.theme-premium_navy {
+  --accent: #1B2A4A; --accent-soft: #EEF1F8; --accent-mid: #C8D1E4;
+  --gold: #D4A843; --cta-grad: linear-gradient(135deg, #D4A843 0%, #C9A030 50%, #B8922A 100%);
+  --p-bg: #0A0E18; --p-card: #111828; --p-border: #1E2A42;
+}
+.theme-premium_navy .hero-p__hook, .theme-premium_navy .ss__num, .theme-premium_navy .dp__num, .theme-premium_navy .cta-p__bonus { color: var(--gold) !important; }
+.theme-premium_navy .cta-p__btn, .theme-premium_navy .badge-p { background: var(--gold) !important; }
+.theme-premium_navy .bp__icon { background: var(--gold) !important; }
+
+.theme-natural_warm {
+  --accent: #3D7A2A; --accent-soft: #EFF7EB; --accent-mid: #C8E0BC;
+  --gold: #B87830; --cta-grad: linear-gradient(135deg, #3D7A2A 0%, #2E6B1D 50%, #245A16 100%);
+  --p-bg: #0A0F08; --p-card: #141E10; --p-border: #223518;
+}
+.theme-natural_warm .hero-p__hook, .theme-natural_warm .ss__num, .theme-natural_warm .dp__num, .theme-natural_warm .cta-p__bonus { color: var(--gold) !important; }
+.theme-natural_warm .cta-p__btn, .theme-natural_warm .badge-p { background: var(--accent) !important; }
+.theme-natural_warm .bp__icon { background: var(--accent) !important; }
+
+.theme-soft_coral {
+  --accent: #D4615A; --accent-soft: #FFF0EE; --accent-mid: #F5CCC8;
+  --gold: #D4615A; --cta-grad: linear-gradient(135deg, #D4615A 0%, #C44F48 50%, #B84440 100%);
+  --p-bg: #100808; --p-card: #1E1010; --p-border: #3A1E1E;
+}
+.theme-soft_coral .hero-p__hook, .theme-soft_coral .ss__num, .theme-soft_coral .dp__num { color: var(--accent) !important; }
+.theme-soft_coral .cta-p__btn, .theme-soft_coral .badge-p, .theme-soft_coral .bp__icon { background: var(--accent) !important; }
+
+.theme-ocean_blue {
+  --accent: #2563EB; --accent-soft: #EFF6FF; --accent-mid: #BFDBFE;
+  --gold: #2563EB; --cta-grad: linear-gradient(135deg, #2563EB 0%, #1D4ED8 50%, #1E40AF 100%);
+  --p-bg: #060A14; --p-card: #0E1628; --p-border: #1A2845;
+}
+.theme-ocean_blue .hero-p__hook, .theme-ocean_blue .ss__num, .theme-ocean_blue .dp__num { color: var(--accent) !important; }
+.theme-ocean_blue .cta-p__btn, .theme-ocean_blue .badge-p, .theme-ocean_blue .bp__icon { background: var(--accent) !important; }
+
+.theme-mocha_brown {
+  --accent: #6B4226; --accent-soft: #FAF3ED; --accent-mid: #DEC8B4;
+  --gold: #A67C52; --cta-grad: linear-gradient(135deg, #6B4226 0%, #5A3720 50%, #4A2D1A 100%);
+  --p-bg: #0C0806; --p-card: #1A1208; --p-border: #2E2010;
+}
+.theme-mocha_brown .hero-p__hook, .theme-mocha_brown .ss__num, .theme-mocha_brown .dp__num, .theme-mocha_brown .cta-p__bonus { color: var(--gold) !important; }
+.theme-mocha_brown .cta-p__btn, .theme-mocha_brown .badge-p, .theme-mocha_brown .bp__icon { background: var(--accent) !important; }
+
+.theme-slate_dark {
+  --accent: #64748B; --accent-soft: #F1F5F9; --accent-mid: #CBD5E1;
+  --gold: #94A3B8; --cta-grad: linear-gradient(135deg, #475569 0%, #334155 50%, #1E293B 100%);
+  --p-bg: #080A0E; --p-card: #0F1318; --p-border: #1E2530;
+}
+.theme-slate_dark .hero-p__hook, .theme-slate_dark .ss__num, .theme-slate_dark .dp__num { color: #94A3B8 !important; }
+.theme-slate_dark .cta-p__btn { background: linear-gradient(135deg,#475569,#1E293B) !important; }
+.theme-slate_dark .badge-p, .theme-slate_dark .bp__icon { background: #475569 !important; }
+
+.theme-rose_gold {
+  --accent: #9B6B5A; --accent-soft: #FDF4F0; --accent-mid: #E8D0C4;
+  --gold: #C4956A; --cta-grad: linear-gradient(135deg, #9B6B5A 0%, #8A5C4C 50%, #7A4F42 100%);
+  --p-bg: #0C0808; --p-card: #1A1210; --p-border: #302018;
+}
+.theme-rose_gold .hero-p__hook, .theme-rose_gold .ss__num, .theme-rose_gold .dp__num, .theme-rose_gold .cta-p__bonus { color: var(--gold) !important; }
+.theme-rose_gold .cta-p__btn, .theme-rose_gold .badge-p, .theme-rose_gold .bp__icon { background: var(--accent) !important; }
+
+/* ===== GLOBAL ===== */
+html { -webkit-text-size-adjust: none; }
+body {
+  width: var(--w); margin: 0 auto;
+  font-family: 'Noto Sans KR', -apple-system, 'Malgun Gothic', sans-serif;
+  background: var(--p-bg); color: var(--p-text);
+  line-height: 1.65; -webkit-font-smoothing: antialiased; letter-spacing: -0.025em;
+}
+.slide { width: var(--w); position: relative; overflow: hidden; }
+
+/* ===== HERO ===== */
+.hero-p { text-align: center; padding: 72px var(--px) 48px; background: var(--p-bg); }
+.hero-p__vis {
+  width: 400px; height: 400px; margin: 0 auto 32px;
+  background: var(--p-card); border-radius: 28px; overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid var(--p-border); position: relative;
+}
+.hero-p__vis img { width: 100%; height: 100%; object-fit: contain; }
+.hero-p__vis-ph { font-size: 13px; color: #444; text-align: center; line-height: 400px; }
+.hero-p__title { font-size: 44px; font-weight: 900; color: #fff; line-height: 1.15; letter-spacing: -0.05em; margin-bottom: 14px; }
+.hero-p__hook { font-size: 20px; font-weight: 700; color: var(--accent); line-height: 1.4; margin-bottom: 10px; }
+.hero-p__sub { font-size: 15px; color: var(--p-sub); line-height: 1.7; }
+
+/* ===== SPEC STRIP ===== */
+.spec-strip {
+  display: flex; justify-content: center;
+  border-top: 1px solid var(--p-border); border-bottom: 1px solid var(--p-border);
+  background: var(--p-card);
+}
+.ss__item { flex: 1; text-align: center; padding: 28px 16px; border-right: 1px solid var(--p-border); }
+.ss__item:last-child { border-right: none; }
+.ss__num { font-size: 32px; font-weight: 900; color: var(--accent); letter-spacing: -0.03em; line-height: 1; }
+.ss__label { font-size: 12px; color: var(--p-sub); margin-top: 6px; font-weight: 600; }
+
+/* ===== SECTION TITLE (다크) ===== */
+.pst { font-size: 36px; font-weight: 900; color: #fff; text-align: center; line-height: 1.25; margin-bottom: 16px; letter-spacing: -0.04em; }
+.pst::after { content: ''; display: block; width: 48px; height: 4px; background: var(--accent); border-radius: 2px; margin: 16px auto 0; }
+
+/* ===== PROBLEM ===== */
+.prob-p { padding: 72px var(--px) 80px; background: var(--p-card); }
+.prob-p__list { max-width: 600px; margin: 48px auto 0; }
+.prob-p__item {
+  display: flex; align-items: center; gap: 18px;
+  padding: 22px 24px; margin-bottom: 12px;
+  background: rgba(255,255,255,0.04); border-radius: 14px; border-left: 4px solid var(--accent);
+}
+.prob-p__icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.08); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.prob-p__icon svg { width: 20px; height: 20px; stroke: rgba(255,255,255,0.7); stroke-width: 2; fill: none; }
+.prob-p__text { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.9); line-height: 1.55; }
+.prob-p__bridge {
+  margin: 32px auto 0; text-align: center; padding: 22px 28px;
+  font-size: 17px; font-weight: 700; color: #fff;
+  background: rgba(255,255,255,0.06); border-radius: 14px;
+  max-width: 600px; border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== BENEFITS ===== */
+.ben-p { padding: 72px var(--px) 80px; background: var(--p-bg); }
+.ben-p__grid { max-width: 600px; margin: 48px auto 0; }
+.bp-card {
+  display: flex; align-items: center; gap: 20px;
+  padding: 28px 24px; margin-bottom: 14px;
+  background: var(--p-card); border-radius: 16px; border: 1px solid var(--p-border);
+}
+.bp__icon { width: 56px; height: 56px; border-radius: 16px; background: var(--accent); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.bp__icon svg { width: 24px; height: 24px; stroke: #fff; stroke-width: 1.8; fill: none; }
+.bp__info { flex: 1; }
+.bp__title { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.bp__hl { font-size: 24px; font-weight: 900; color: var(--accent); margin-bottom: 4px; }
+.bp__desc { font-size: 13px; color: var(--p-sub); line-height: 1.6; }
+
+/* ===== DETAILS — 풀블리드 + 텍스트 ===== */
+.dp-slide { min-height: 420px; display: flex; align-items: stretch; position: relative; }
+.dp-slide--alt { background: var(--p-card); }
+.dp-slide--base { background: var(--p-bg); }
+.dp__img { width: 50%; overflow: hidden; background: var(--p-card); display: flex; align-items: center; justify-content: center; }
+.dp__img img { width: 100%; height: 100%; object-fit: cover; }
+.dp__img-ph { font-size: 12px; color: #444; }
+.dp__text { width: 50%; padding: 56px 48px; display: flex; flex-direction: column; justify-content: center; }
+.dp__text--full { width: 100%; text-align: center; padding: 72px var(--px) 80px; }
+.dp__text--full .dp__body { max-width: 500px; margin: 0 auto; }
+.dp-slide--rev { flex-direction: row-reverse; }
+.badge-p { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 800; padding: 6px 18px; border-radius: 20px; letter-spacing: 0.1em; margin-bottom: 18px; }
+.dp__num { font-size: 88px; font-weight: 900; color: var(--accent); line-height: 0.85; margin-bottom: 8px; letter-spacing: -0.05em; }
+.dp__headline { font-size: 32px; font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.03em; word-break: keep-all; }
+.dp__body { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.85; word-break: keep-all; }
+
+/* ===== REASONS ===== */
+.rea-p { padding: 72px var(--px) 80px; background: var(--p-card); }
+.rea-p__cards { max-width: 600px; margin: 48px auto 0; }
+.rp-card {
+  display: flex; align-items: flex-start; gap: 18px;
+  padding: 24px; margin-bottom: 14px;
+  background: rgba(255,255,255,0.04); border-radius: 14px; border-left: 4px solid var(--accent);
+}
+.rp__icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.rp__icon svg { width: 20px; height: 20px; stroke: #fff; stroke-width: 2; fill: none; }
+.rp__content { flex: 1; }
+.rp__num { font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 4px; }
+.rp__title { font-size: 17px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.rp__text { font-size: 13px; color: var(--p-sub); line-height: 1.7; }
+
+/* ===== SPECS ===== */
+.spec-p { padding: 72px var(--px) 80px; background: var(--p-bg); }
+.spec-p__table { width: 100%; max-width: 600px; margin: 24px auto 0; border-radius: 14px; overflow: hidden; border: 1px solid var(--p-border); }
+.sp-row { display: flex; border-bottom: 1px solid var(--p-border); }
+.sp-row:last-child { border-bottom: none; }
+.sp__label { width: 160px; flex-shrink: 0; padding: 16px 20px; font-size: 13px; font-weight: 700; color: var(--p-sub); background: var(--p-card); }
+.sp__value { flex: 1; padding: 16px 20px; font-size: 14px; color: var(--p-text); line-height: 1.55; font-weight: 500; }
+.spec-p__cmp { margin-top: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.spec-p__cmp-title { font-size: 20px; font-weight: 900; color: #fff; text-align: center; margin-bottom: 24px; }
+.spec-p__cmp-grid { border-radius: 14px; overflow: hidden; border: 1px solid var(--p-border); }
+.spc-head { display: grid; grid-template-columns: 2fr 3fr 3fr; background: var(--p-card); }
+.spc-head > div { padding: 14px; font-size: 12px; font-weight: 700; color: var(--p-sub); text-align: center; border-right: 1px solid var(--p-border); }
+.spc-head > div:last-child { border-right: none; }
+.spc-row { display: grid; grid-template-columns: 2fr 3fr 3fr; border-top: 1px solid var(--p-border); }
+.spc-row > div { padding: 14px; font-size: 13px; text-align: center; }
+.spc-row > div:first-child { font-weight: 700; color: var(--p-sub); background: var(--p-card); }
+.spc-row > div:nth-child(2) { font-weight: 800; color: var(--accent); }
+.spc-row > div:nth-child(3) { color: #555; }
+
+/* ===== FAQ ===== */
+.faq-p { padding: 72px var(--px) 80px; background: var(--p-card); }
+.faq-p__items { max-width: 600px; margin: 48px auto 0; }
+.fp-item {
+  background: rgba(255,255,255,0.04); border-radius: 14px;
+  padding: 24px 28px; margin-bottom: 12px; border-left: 4px solid var(--accent);
+}
+.fp__q { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.45; margin-bottom: 10px; display: flex; gap: 12px; }
+.fp__q-tag { color: #fff; background: var(--accent); font-weight: 800; flex-shrink: 0; font-size: 11px; width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.fp__a { font-size: 14px; color: var(--p-sub); line-height: 1.8; padding-left: 38px; }
+
+/* ===== CTA ===== */
+.cta-p { text-align: center; background: var(--p-bg); }
+.cta-p__inner { padding: 80px var(--px) 56px; }
+.cta-p__headline { font-size: 38px; font-weight: 900; color: #fff; line-height: 1.28; margin-bottom: 16px; letter-spacing: -0.045em; }
+.cta-p__sub { font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 40px; line-height: 1.65; }
+.cta-p__btn { display: inline-block; background: var(--cta-grad); color: #fff; font-size: 18px; font-weight: 800; padding: 20px 60px; border-radius: 60px; margin-bottom: 18px; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+.cta-p__bonus { font-size: 18px; color: #fff; font-weight: 800; margin-bottom: 36px; }
+.cta-p__badges { display: flex; justify-content: center; gap: 40px; margin-bottom: 36px; }
+.cta-p__badge { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cta-p__badge-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; }
+.cta-p__badge-icon svg { width: 28px; height: 28px; stroke: #fff; stroke-width: 1.8; fill: none; }
+.cta-p__badge-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.6); }
+.cta-p__compliance { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); max-width: 600px; margin: 0 auto; }
+.cta-p__compliance p { font-size: 10px; color: rgba(255,255,255,0.25); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<div class="slide" data-slide-id="hero">
+  <div class="hero-p">
+    <div class="hero-p__vis" id="heroVisual"><div class="hero-p__vis-ph" id="heroPlaceholder">제품 대표이미지</div></div>
+    <h1 class="hero-p__title" id="heroTitle"></h1>
+    <p class="hero-p__hook" id="heroHook"></p>
+    <p class="hero-p__sub" id="heroSub"></p>
+  </div>
+  <div class="spec-strip" id="specStrip"></div>
+</div>
+
+<div class="slide" data-slide-id="problem-benefits">
+  <div class="prob-p" id="problemSection">
+    <h2 class="pst" id="problemHeadline"></h2>
+    <div class="prob-p__list" id="problemList"></div>
+    <div class="prob-p__bridge" id="problemBridge"></div>
+  </div>
+  <div class="ben-p">
+    <h2 class="pst" id="benefitsHeadline"></h2>
+    <div class="ben-p__grid" id="benefitsGrid"></div>
+  </div>
+</div>
+
+<div id="slideDetails"></div>
+
+<div class="slide" data-slide-id="reasons-specs">
+  <div class="rea-p" id="reasonsSection">
+    <h2 class="pst" id="reasonsHeadline"></h2>
+    <div class="rea-p__cards" id="reasonsCards"></div>
+  </div>
+  <div class="spec-p">
+    <h2 class="pst" id="specsTitle"></h2>
+    <div class="spec-p__table" id="specsTable"></div>
+    <div class="spec-p__cmp" id="specsCompare"></div>
+  </div>
+</div>
+
+<div class="slide" data-slide-id="faq" id="slideFaq">
+  <div class="faq-p">
+    <h2 class="pst" id="faqTitle"></h2>
+    <div class="faq-p__items" id="faqItems"></div>
+  </div>
+</div>
+
+<div class="slide cta-p" data-slide-id="cta">
+  <div class="cta-p__inner" id="ctaSection">
+    <h2 class="cta-p__headline" id="ctaHeadline"></h2>
+    <p class="cta-p__sub" id="ctaSub"></p>
+    <div class="cta-p__btn" id="ctaUrgency"></div>
+    <p class="cta-p__bonus" id="ctaBonus"></p>
+    <div class="cta-p__badges" id="ctaBadges"></div>
+    <div class="cta-p__compliance" id="ctaCompliance"></div>
+  </div>
+</div>
+
+<script>
+var D = __PRODUCT_DATA__;
+var IMG = __IMAGE_URLS__;
+var STYLE = __DESIGN_STYLE__;
+document.body.classList.add('theme-' + STYLE);
+
+var SVG_ICONS = {
+  zap:'<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  shield:'<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  check:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
+  star:'<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  truck:'<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
+  award:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+  thumbsup:'<svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>',
+  package:'<svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>',
+  feather:'<svg viewBox="0 0 24 24"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>',
+  target:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
+  clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  refresh:'<svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>',
+  _default:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>'
+};
+var _usedIcons={};
+function pickIcon(text,context){var t=(text||'').toLowerCase();var candidates=[];
+if(t.match(/빠른|초|속도|원터치|즉시|즉석/))candidates.push('zap');
+if(t.match(/안전|안정|하중|견고|튼튼|보호|내구/))candidates.push('shield');
+if(t.match(/가벼|경량|무게|kg|초경/))candidates.push('feather');
+if(t.match(/배송|무료배송|택배/))candidates.push('truck');
+if(t.match(/보증|품질|인증|프리미엄|고급/))candidates.push('award');
+if(t.match(/추천|인기|1위|베스트|랭킹/))candidates.push('star');
+if(t.match(/반품|교환|환불/))candidates.push('refresh');
+if(t.match(/수납|컴팩트|접이|크기|사이즈|보관/))candidates.push('package');
+if(t.match(/만족|좋|편안|편리|편하/))candidates.push('thumbsup');
+if(t.match(/목표|정확|맞춤|핵심/))candidates.push('target');
+if(t.match(/시간|기간|오래|지속/))candidates.push('clock');
+if(t.match(/사랑|건강|케어|피부/))candidates.push('heart');
+var ctx=context||'default';if(!_usedIcons[ctx])_usedIcons[ctx]={};
+for(var c=0;c<candidates.length;c++){if(!_usedIcons[ctx][candidates[c]]){_usedIcons[ctx][candidates[c]]=true;return SVG_ICONS[candidates[c]];}}
+var allKeys=['zap','shield','feather','truck','award','star','package','thumbsup','target','clock','heart','check'];
+for(var k=0;k<allKeys.length;k++){if(!_usedIcons[ctx][allKeys[k]]){_usedIcons[ctx][allKeys[k]]=true;return SVG_ICONS[allKeys[k]];}}
+return SVG_ICONS._default;}
+
+var PROBLEM_ICONS=[
+'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+'<svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>'];
+
+function extractNumber(h,b){var m=h.match(/(\d+[\.,]?\d*)\s*(kg|g|초|cm|mm|%|ml|L|개|장|만|억|원|brix|W|Mbps)/i);if(m)return{num:m[1]+m[2],rest:h.replace(m[0],'').trim()};if(b){var m2=b.match(/(\d+[\.,]?\d*)\s*(kg|g|초|cm|mm|%|ml|L|개|장|만|억|원|brix|W|Mbps)/i);if(m2)return{num:m2[1]+m2[2],rest:h};}return null;}
+
+function render(d){
+  var tog=d.section_toggles||{};
+  document.getElementById('heroTitle').textContent=d.hero.product_title;
+  document.getElementById('heroHook').textContent=d.hero.hook_line;
+  document.getElementById('heroSub').textContent=d.hero.sub_hook||'';
+
+  // SPEC STRIP (benefits 상위 4개에서 추출)
+  var ss=document.getElementById('specStrip');
+  d.benefits.items.slice(0,4).forEach(function(b){
+    var item=document.createElement('div');item.className='ss__item';
+    var numData=extractNumber(b.title+' '+b.description,'');
+    var numText=b.highlight_value||(numData?numData.num:'—');
+    item.innerHTML='<div class="ss__num">'+numText+'</div><div class="ss__label">'+b.title+'</div>';
+    ss.appendChild(item);
+  });
+
+  // PROBLEM
+  if(tog.problem===false||!d.problem){document.getElementById('problemSection').style.display='none';}
+  else{
+    document.getElementById('problemHeadline').textContent=d.problem.headline;
+    var list=document.getElementById('problemList');
+    d.problem.pain_points.forEach(function(p,pi){
+      var item=document.createElement('div');item.className='prob-p__item';
+      item.innerHTML='<div class="prob-p__icon">'+PROBLEM_ICONS[pi%PROBLEM_ICONS.length]+'</div><div class="prob-p__text">'+p.text+'</div>';
+      list.appendChild(item);
+    });
+    var br=document.getElementById('problemBridge');
+    if(d.problem.bridge){br.textContent=d.problem.bridge;}else{br.style.display='none';}
+  }
+
+  // BENEFITS
+  document.getElementById('benefitsHeadline').textContent=d.benefits.section_title||'';
+  var bg=document.getElementById('benefitsGrid');
+  d.benefits.items.forEach(function(b){
+    var card=document.createElement('div');card.className='bp-card';
+    var hlHtml=b.highlight_value?'<div class="bp__hl">'+b.highlight_value+'</div>':'';
+    card.innerHTML='<div class="bp__icon">'+pickIcon(b.title,'benefit')+'</div><div class="bp__info"><div class="bp__title">'+b.title+'</div>'+hlHtml+'<div class="bp__desc">'+b.description+'</div></div>';
+    bg.appendChild(card);
+  });
+
+  // DETAILS — 좌우 교차 (다크)
+  var dc=document.getElementById('slideDetails');
+  d.details.blocks.forEach(function(block,i){
+    var hasImg=(IMG.length>i+1);
+    var numData=extractNumber(block.headline,block.body);
+    var isReverse=(i%2===1);
+    var slideW=document.createElement('div');
+    slideW.className='slide';slideW.setAttribute('data-slide-id','details-'+(i+1));
+    var numHtml=numData?'<div class="dp__num">'+numData.num+'</div>':'';
+    var headlineText=numData?numData.rest:block.headline;
+    if(hasImg){
+      var row=document.createElement('div');
+      row.className='dp-slide'+(isReverse?' dp-slide--rev':'')+(i%2===0?' dp-slide--alt':' dp-slide--base');
+      row.innerHTML='<div class="dp__img" id="imgDetail'+i+'"><div class="dp__img-ph">POINT 0'+(i+1)+'</div></div>'+
+        '<div class="dp__text"><span class="badge-p">POINT 0'+(i+1)+'</span>'+numHtml+
+        '<h2 class="dp__headline">'+headlineText+'</h2><p class="dp__body">'+block.body+'</p></div>';
+      slideW.appendChild(row);
+    }else{
+      var full=document.createElement('div');
+      full.className='dp-slide'+(i%2===0?' dp-slide--alt':' dp-slide--base');
+      full.style.display='block';
+      full.innerHTML='<div class="dp__text dp__text--full"><span class="badge-p">POINT 0'+(i+1)+'</span>'+numHtml+
+        '<h2 class="dp__headline">'+headlineText+'</h2><p class="dp__body">'+block.body+'</p></div>';
+      slideW.appendChild(full);
+    }
+    dc.appendChild(slideW);
+  });
+
+  // REASONS
+  var reasonsData=d.selection_reasons||null;
+  if(!reasonsData&&d.social_proof){reasonsData={headline:d.social_proof.headline||'',items:(d.social_proof.testimonials||[]).map(function(t){return{icon:'',title:t.persona||'',text:t.text||''};});};}
+  if(tog.selection_reasons===false||!reasonsData){document.getElementById('reasonsSection').style.display='none';}
+  else{
+    document.getElementById('reasonsHeadline').textContent=reasonsData.headline||'';
+    var rc=document.getElementById('reasonsCards');
+    (reasonsData.items||[]).forEach(function(item,i){
+      var card=document.createElement('div');card.className='rp-card';
+      card.innerHTML='<div class="rp__icon">'+pickIcon(item.title,'reason')+'</div><div class="rp__content"><div class="rp__num">REASON 0'+(i+1)+'</div><div class="rp__title">'+(item.title||'')+'</div><div class="rp__text">'+(item.text||'')+'</div></div>';
+      rc.appendChild(card);
+    });
+  }
+
+  // SPECS
+  document.getElementById('specsTitle').textContent=d.specs.section_title||'상세 스펙';
+  var st=document.getElementById('specsTable');
+  d.specs.rows.forEach(function(r){var row=document.createElement('div');row.className='sp-row';row.innerHTML='<div class="sp__label">'+r.label+'</div><div class="sp__value">'+r.value+'</div>';st.appendChild(row);});
+  var sc2=document.getElementById('specsCompare');
+  if(d.specs.comparison&&d.specs.comparison.enabled){
+    var html='<h3 class="spec-p__cmp-title">왜 이 제품인가요?</h3><div class="spec-p__cmp-grid"><div class="spc-head"><div>항목</div><div>본 상품</div><div>일반 제품</div></div>';
+    d.specs.comparison.items.forEach(function(item){html+='<div class="spc-row"><div>'+item.label+'</div><div>'+item.ours+'</div><div>'+(item.others||'-')+'</div></div>';});
+    html+='</div>';sc2.innerHTML=html;
+  }
+
+  // FAQ
+  if(tog.faq===false||!d.faq){document.getElementById('slideFaq').style.display='none';}
+  else{
+    document.getElementById('faqTitle').textContent=d.faq.section_title||'자주 묻는 질문';
+    var fi=document.getElementById('faqItems');
+    d.faq.items.forEach(function(f){var item=document.createElement('div');item.className='fp-item';item.innerHTML='<div class="fp__q"><span class="fp__q-tag">Q</span><span>'+f.question+'</span></div><div class="fp__a">'+f.answer+'</div>';fi.appendChild(item);});
+  }
+
+  // CTA
+  document.getElementById('ctaHeadline').textContent=d.cta.headline;
+  document.getElementById('ctaSub').textContent=d.cta.sub_text||'';
+  var urg=document.getElementById('ctaUrgency');if(d.cta.urgency){urg.textContent=d.cta.urgency;}else{urg.style.display='none';}
+  var bon=document.getElementById('ctaBonus');if(d.cta.bonus){bon.textContent=d.cta.bonus;}else{bon.style.display='none';}
+  var badges=document.getElementById('ctaBadges');
+  (d.cta.trust_badges||[]).forEach(function(b){var el=document.createElement('div');el.className='cta-p__badge';el.innerHTML='<div class="cta-p__badge-icon">'+pickIcon(b.label,'cta')+'</div><div class="cta-p__badge-label">'+b.label+'</div>';badges.appendChild(el);});
+  var comp=document.getElementById('ctaCompliance');
+  if(d.compliance&&d.compliance.legal_notices){d.compliance.legal_notices.forEach(function(n){var p=document.createElement('p');p.textContent=n;comp.appendChild(p);});}
+}
+render(D);
+
+// 이미지 배치
+var n=IMG.length;
+if(n>=1){var hv=document.getElementById('heroVisual');var hp=document.getElementById('heroPlaceholder');hp.style.display='none';var hi=document.createElement('img');hi.src=IMG[0];hv.appendChild(hi);}
+for(var di=0;di<7;di++){if(IMG[di+1]){var det=document.getElementById('imgDetail'+di);if(det){det.innerHTML='<img src="'+IMG[di+1]+'" alt="">';}}}
+</script>
+</body>
+</html>
